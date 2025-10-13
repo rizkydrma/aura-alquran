@@ -1,10 +1,20 @@
 # Rate Limiting
 
-- **Limit**: 100 requests per menit per API key
-- **Window**: 60 detik (1 menit)
-- **Algorithm**: Sliding window menggunakan in-memory storage
+API ini membatasi jumlah request untuk mencegah penyalahgunaan dan menjaga kinerja sistem.
 
-## Rate Limit Response
+- **Batas**: Maksimal 100 requests per jendela per API key
+- **Jendela Waktu**: 60 detik (1 menit)
+
+## Rate Limit Headers
+
+Setiap response akan menyertakan header berikut untuk membantu Anda memantau penggunaan:
+
+- `X-RateLimit-Limit`: Jumlah maksimal request yang diizinkan per jendela (100)
+- `X-RateLimit-Remaining`: Jumlah request tersisa dalam jendela saat ini
+
+## Ketika Batas Terlampaui
+
+Jika Anda melebihi batas request, sistem akan memberikan response berikut:
 
 ```json
 {
@@ -12,4 +22,8 @@
 }
 ```
 
-Status Code: `429`
+**Status Code**: `429`
+
+Header tambahan saat batas terlampaui:
+
+- `Retry-After`: Waktu tunggu dalam detik sebelum request berikutnya diizinkan
