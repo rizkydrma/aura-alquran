@@ -1,39 +1,34 @@
+import Logo from "@/components/logo";
+import Magnet from "@/components/react-bits/Magnet";
+import DarkVeil from "@/components/react-bits/background/dark-veil";
+import { ArrowRightIcon } from "lucide-react";
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
-      {/* Header/Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 animate-pulse"></div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 md:px-8">
-          <div className="backdrop-blur-sm bg-white/10 rounded-2xl p-8 md:p-12 shadow-2xl border border-white/20">
-            <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 tracking-tight">Aura Al-Qur`an</h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8">Modern Quran Data API for Developers</p>
-            <p className="text-base md:text-lg text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Access structured Quran data faster. Surahs, verses, translations in multiple languages, tafsirs, and
-              high-quality audio recitations.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="/docs"
-                className="bg-white text-slate-900 font-semibold px-8 py-4 rounded-lg hover:bg-white/90 transition-all inline-flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-              >
-                <span>View Documentation</span>
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </a>
-              <button className="border border-white/30 text-white px-8 py-4 rounded-lg hover:bg-white/10 transition-all backdrop-blur-sm">
-                Get Started Free
-              </button>
-            </div>
+    <div className="min-h-screen">
+      <div className="w-full h-[800px] relative -mt-16">
+        <DarkVeil />
+
+        <div className="absolute top-1/2 left-1/2 z-10 transform -translate-x-1/2 -translate-y-1/2 max-w-4xl w-full text-center px-4 md:px-8 space-y-4">
+          <div className="w-full text-center flex items-center justify-center">
+            <Logo width={100} height={100} size="xl" />
           </div>
+
+          <p className="text-xl md:text-2xl text-white/90">Modern Quran Data API for Developers</p>
+          <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed mb-8">
+            Access structured Quran data faster. Surahs, verses, translations in multiple languages, and tafsirs.
+          </p>
+
+          <Magnet padding={50} disabled={false} magnetStrength={20}>
+            <a
+              href="/docs"
+              className="border border-white/30 text-white px-8 py-4 rounded-lg hover:bg-white/10 transition-all backdrop-blur-sm"
+            >
+              View Documentations <ArrowRightIcon className="inline-flex w-4 h-4" />
+            </a>
+          </Magnet>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent"></div>
-      </section>
+      </div>
 
       {/* USP Section */}
       <section className="py-24 px-4 md:px-8 max-w-6xl mx-auto">
@@ -72,9 +67,9 @@ export default function Home() {
                 <path d="M13 3V0h-2v3c1.657 0 3 1.343 3 3v1a1 1 0 01-1 1h-2V6a2 2 0 012-2zM11 8.5l1.5 1.5-1.5 1.5-1.5-1.5L11 8.5z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-4">Multi-Language & Audio</h3>
+            <h3 className="text-xl font-semibold mb-4">Multi-Language</h3>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Support for translations in various languages and access to high-quality murottal recordings.
+              Support for translations in various languages.
             </p>
           </div>
         </div>
@@ -213,117 +208,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing/Access Section */}
-      <section className="py-24 px-4 md:px-8 max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Access Plans & Pricing</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold mb-2">Free</h3>
-              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1">$0</div>
-              <span className="text-gray-500">per month</span>
-            </div>
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                1,000 requests/month
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Basic data access
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Rate limit: 10 req/min
-              </li>
-            </ul>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-              Perfect for personal projects or prototyping.
-            </p>
-            <button className="w-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold py-3 rounded-lg transition-colors">
-              Get Started
-            </button>
-          </div>
-          <div className="relative bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg border-2 border-gradient-to-r from-emerald-400 to-teal-500 hover:shadow-2xl transition-all transform hover:-translate-y-1">
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <span className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                Most Popular
-              </span>
-            </div>
-            <div className="text-center mb-6 pt-4">
-              <h3 className="text-2xl font-bold mb-2">Premium</h3>
-              <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1">$5</div>
-              <span className="text-gray-500">per month</span>
-            </div>
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                100,000 requests/month
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Full feature access
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Rate limit: 100 req/min
-              </li>
-              <li className="flex items-center">
-                <svg className="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Priority support
-              </li>
-            </ul>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-              Rp 75,000/month for production-ready apps.
-            </p>
-            <button className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold py-3 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition-all">
-              Upgrade Now
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* <SplashCursor /> */}
     </div>
   );
 }
