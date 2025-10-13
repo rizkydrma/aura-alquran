@@ -1,0 +1,19 @@
+# Authentication
+
+Semua endpoint memerlukan header `X-API-Key` dengan API key yang valid.
+
+## Header Format
+
+```
+X-API-Key: your-api-key-here
+```
+
+## Cara Menggunakan Authentication
+
+Untuk mengakses API, Anda perlu menyediakan API key valid dalam setiap request melalui header `X-API-Key`. Pastikan Anda memiliki API key yang sudah terdaftar sebelum membuat request. Jika API key tidak valid atau hilang, request akan ditolak dengan pesan error yang sesuai.
+
+## Contoh Request dengan Authentication
+
+```bash
+curl -H "X-API-Key: example-api-key-here" http://localhost:3000/api/v1/surahs
+```

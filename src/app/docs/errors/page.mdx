@@ -1,0 +1,66 @@
+# Error Responses
+
+## Validation Error (400)
+
+```json
+{
+  "error": {
+    "issues": [
+      {
+        "code": "too_small",
+        "minimum": 1,
+        "type": "number",
+        "inclusive": true,
+        "exact": false,
+        "message": "Number must be greater than or equal to 1",
+        "path": ["page"]
+      }
+    ],
+    "name": "ZodError"
+  }
+}
+```
+
+## Authentication Error (401)
+
+```json
+{
+  "error": "X-API-Key header is required"
+}
+```
+
+```json
+{
+  "error": "Invalid API Key"
+}
+```
+
+## Not Found Error (404)
+
+```json
+{
+  "error": "Surah not found"
+}
+```
+
+```json
+{
+  "error": "Ayat not found"
+}
+```
+
+## Rate Limit Error (429)
+
+```json
+{
+  "error": "Rate limit exceeded"
+}
+```
+
+## Internal Server Error (500)
+
+```json
+{
+  "error": "Internal Server Error"
+}
+```

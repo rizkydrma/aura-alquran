@@ -1,0 +1,34 @@
+# Aura Al-Qur'an REST API Documentation
+
+Backend API untuk mengakses data Al-Qur'an menggunakan Hono.js, Bun, TypeScript, PostgreSQL, dan Drizzle ORM.
+
+## Base URL
+
+```
+http://localhost:3000/api/v1
+```
+
+## Dokumentasi Chapters
+
+- [Authentication](/docs/authentication) - Panduan autentikasi dengan API key
+- [Rate Limiting](/docs/rate-limiting) - Batasan permintaan API
+- [Endpoints](/docs/endpoints) - Daftar semua endpoint API
+- [Error Responses](/docs/errors) - Deskripsi respons error
+- [Data Models](/docs/data-models) - Struktur data Surah dan Ayat
+- [Pagination](/docs/pagination) - Cara menggunakan pagination
+- [Setup API Key](/docs/setup) - Cara setup API key
+- [Validation Rules](/docs/validation) - Aturan validasi parameter
+- [Performance Notes](/docs/performance) - Catatan performa API
+- [Development Notes](/docs/development) - Catatan untuk developer
+
+## Overview
+
+API ini menyediakan akses penuh ke data Al-Qur'an lengkap dengan terjemahan, transliterasi, dan struktur mushaf Al-Qur'an. Semua endpoint memerlukan autentikasi menggunakan header `X-API-Key`.
+
+Fitur utama:
+
+- Akses data 114 Surah lengkap
+- Pencarian ayat dengan full-text search
+- Pagination untuk handling data besar
+- Rate limiting untuk mencegah abuse
+- Response terstruktur dengan validasi Zod

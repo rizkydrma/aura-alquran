@@ -1,0 +1,30 @@
+# Pagination
+
+Endpoint yang menggunakan pagination akan mengembalikan informasi berikut:
+
+## Response Format
+
+```json
+{
+  "message": "Success fetch surahs",
+  "data": [...],
+  "page": 1, // Current page
+  "limit": 10, // Items per page
+  "total_page": 12, // Total pages
+  "total_items": 114 // Total items
+}
+```
+
+## Parameter Default
+
+- `page`: 1 (minimal 1)
+- `limit`: 10 (1-100)
+
+## Contoh Usage
+
+Untuk navigasi pagination:
+
+1. Gunakan `page` untuk halaman spesifik
+2. Gunakan `limit` untuk mengatur jumlah item per halaman
+3. Hitung total halaman dari `total_page`
+4. Total data tersedia di `total_items`

@@ -1,0 +1,15 @@
+# Rate Limiting
+
+- **Limit**: 100 requests per menit per API key
+- **Window**: 60 detik (1 menit)
+- **Algorithm**: Sliding window menggunakan in-memory storage
+
+## Rate Limit Response
+
+```json
+{
+  "error": "Rate limit exceeded"
+}
+```
+
+Status Code: `429`

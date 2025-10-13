@@ -1,0 +1,237 @@
+# Endpoints
+
+## 1. List Surahs (Daftar Surah)
+
+**GET** `/surahs`
+
+Mengambil daftar semua Surah Al-Qur'an dengan pagination.
+
+### Parameters
+
+| Parameter | Type    | Required | Default | Description                         |
+| --------- | ------- | -------- | ------- | ----------------------------------- |
+| `page`    | integer | No       | 1       | Halaman yang diinginkan (minimal 1) |
+| `limit`   | integer | No       | 10      | Jumlah item per halaman (1-100)     |
+
+### Response
+
+```json
+{
+  "message": "Success fetch surahs",
+  "data": [
+    {
+      "id": 1,
+      "arabic": "الفاتحة",
+      "latin": "Al-Fatihah",
+      "transliteration": "Al-Fātihah",
+      "translation": "Pembuka",
+      "numAyah": 7,
+      "page": 1,
+      "location": "Makkiyah"
+    }
+  ],
+  "page": 1,
+  "limit": 10,
+  "total_page": 12,
+  "total_items": 114
+}
+```
+
+### Contoh Request
+
+```bash
+curl -H "X-API-Key: example-api-key-here" "http://localhost:3000/api/v1/surahs?page=1&limit=5"
+```
+
+## 2. Surah Detail (Detail Surah)
+
+**GET** `/surahs/{surahId}`
+
+Mengambil detail Surah tertentu berdasarkan ID.
+
+### Parameters
+
+| Parameter | Type    | Required | Description      |
+| --------- | ------- | -------- | ---------------- |
+| `surahId` | integer | Yes      | ID Surah (1-114) |
+
+### Response
+
+```json
+{
+  "message": "Success fetch surah",
+  "data": {
+    "id": 1,
+    "arabic": "الفاتحة",
+    "latin": "Al-Fatihah",
+    "transliteration": "Al-Fātihah",
+    "translation": "Pembuka",
+    "numAyah": 7,
+    "page": 1,
+    "location": "Makkiyah"
+  }
+}
+```
+
+### Error Response
+
+```json
+{
+  "error": "Surah not found"
+}
+```
+
+Status Code: `404`
+
+### Contoh Request
+
+```bash
+curl -H "X-API-Key: example-api-key-here" http://localhost:3000/api/v1/surahs/1
+```
+
+## 3. List Ayats by Surah (Daftar Ayat berdasarkan Surah)
+
+**GET** `/surahs/{surahId}/ayats`
+
+Mengambil daftar Ayat dari Surah tertentu dengan pagination.
+
+### Parameters
+
+| Parameter | Type    | Required | Default | Description                         |
+| --------- | ------- | -------- | ------- | ----------------------------------- |
+| `surahId` | integer | Yes      | -       | ID Surah (path parameter)           |
+| `page`    | integer | No       | 1       | Halaman yang diinginkan (minimal 1) |
+| `limit`   | integer | No       | 10      | Jumlah item per halaman (1-100)     |
+
+### Response
+
+```json
+{
+  "message": "Success fetch ayats",
+  "data": [
+    {
+      "id": 1,
+      "surahId": 1,
+      "ayah": 1,
+      "page": 1,
+      "juz": 1,
+      "manzil": 1,
+      "quarterHizb": 1,
+      "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "kitabah": "بسم الله الرحمن الرحيم",
+      "latin": "Bismillahir Rahmanir Rahim",
+      "translation": "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.",
+      "footnotes": null,
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "arabicWords": ["بِسْمِ", "اللَّهِ", "الرَّحْمَٰنِ", "الرَّحِيمِ"]
+    }
+  ],
+  "page": 1,
+  "limit": 10,
+  "total_page": 1,
+  "total_items": 7
+}
+```
+
+### Contoh Request
+
+```bash
+curl -H "X-API-Key: example-api-key-here" "http://localhost:3000/api/v1/surahs/1/ayats?page=1&limit=5"
+```
+
+## 4. Ayat Detail (Detail Ayat)
+
+**GET** `/surahs/{surahId}/ayats/{ayahNumber}`
+
+Mengambil detail Ayat tertentu berdasarkan Surah ID dan nomor ayat.
+
+### Parameters
+
+| Parameter    | Type    | Required | Description                             |
+| ------------ | ------- | -------- | --------------------------------------- |
+| `surahId`    | integer | Yes      | ID Surah (path parameter)               |
+| `ayahNumber` | integer | Yes      | Nomor ayat dalam Surah (path parameter) |
+
+### Response
+
+```json
+{
+  "message": "Success fetch ayat",
+  "data": {
+    "id": 1,
+    "surahId": 1,
+    "ayah": 1,
+    "page": 1,
+    "juz": 1,
+    "manzil": 1,
+    "quarterHizb": 1,
+    "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    "kitabah": "بسم الله الرحمن الرحيم",
+    "latin": "Bismillahir Rahmanir Rahim",
+    "translation": "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.",
+    "footnotes": null,
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "arabicWords": ["بِسْمِ", "اللَّهِ", "الرَّحْمَٰنِ", "الرَّحِيمِ"]
+  }
+}
+```
+
+### Error Response
+
+```json
+{
+  "error": "Ayat not found"
+}
+```
+
+Status Code: `404`
+
+### Contoh Request
+
+```bash
+curl -H "X-API-Key: example-api-key-here" http://localhost:3000/api/v1/surahs/1/ayats/1
+```
+
+## 5. Search Ayats (Pencarian Ayat)
+
+**GET** `/search`
+
+Mencari Ayat berdasarkan teks Arab atau terjemahan menggunakan full-text search PostgreSQL.
+
+### Parameters
+
+| Parameter | Type   | Required | Default | Description                           |
+| --------- | ------ | -------- | ------- | ------------------------------------- |
+| `q`       | string | Yes      | -       | Kata kunci pencarian (1-100 karakter) |
+
+### Response
+
+```json
+{
+  "message": "Success search ayats",
+  "data": [
+    {
+      "id": 1,
+      "surahId": 1,
+      "ayah": 1,
+      "page": 1,
+      "juz": 1,
+      "manzil": 1,
+      "quarterHizb": 1,
+      "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "kitabah": "بسم الله الرحمن الرحيم",
+      "latin": "Bismillahir Rahmanir Rahim",
+      "translation": "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.",
+      "footnotes": null,
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "arabicWords": ["بِسْمِ", "اللَّهِ", "الرَّحْمَٰنِ", "الرَّحِيمِ"]
+    }
+  ]
+}
+```
+
+### Contoh Request
+
+```bash
+curl -H "X-API-Key: example-api-key-here" "http://localhost:3000/api/v1/search?q=Allah"
+```
