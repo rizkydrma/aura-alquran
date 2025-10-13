@@ -6,9 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prepare": "husky"
   },
   "dependencies": {
+    "husky": "^9.1.7",
     "next": "15.5.4",
     "nextra": "^4.6.0",
     "nextra-theme-docs": "^4.6.0",
