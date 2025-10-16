@@ -7,7 +7,7 @@ const USPS = [
     {
         icon: SparklesIcon,
         title: "Verified & Accurate",
-        description: "Qur`an data from trusted sources, verified for accuracy in text and translations.",
+        description: "Data from trusted sources, verified for accuracy in text and translations.",
     },
     {
         icon: CircleGaugeIcon,
@@ -35,7 +35,7 @@ const USPSesction = () => {
             delay={0.2}
         >
             <section className="mx-auto min-h-[700px] max-w-7xl px-4 py-24 md:px-8">
-                <h2 className="mb-16 text-center text-3xl font-bold md:text-4xl">Why Choose Aura Al-Qur`an API?</h2>
+                <h2 className="mb-16 text-center text-3xl font-bold md:text-4xl">Why Choose AzoraX API Muslim ?</h2>
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                     {USPS?.map((usp) => (
                         <SpotlightCard

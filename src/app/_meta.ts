@@ -8,8 +8,20 @@ export default {
         title: "Documentation",
         type: "page",
     },
-    read: {
+    quran: {
         title: "Read Al-Qur`an",
+        type: "page",
+    },
+    doa: {
+        title: "Doa",
+        type: "page",
+    },
+    dzikir: {
+        title: "Dzikir",
+        type: "page",
+    },
+    hadits: {
+        title: "Hadits",
         type: "page",
     },
 };

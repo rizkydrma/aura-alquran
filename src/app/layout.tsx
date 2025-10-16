@@ -8,11 +8,11 @@ import "./globals.css";
 import Footer from "@/components/footer";
 
 export const metadata = {
-    title: "Aura Al-Qur'an API",
+    title: "AzoraX Al-Qur'an API",
     description:
         "Data Al-Qur'an yang Cepat, Lengkap, dan Modern untuk Developer Muslim Indonesia. Dapatkan akșes ke data Surah, Ayat, Terjemahan, Tafsir, dan Audio Al-Qur'an dengan API yang terstruktur dan terverifikasi.",
     keywords: ["Al-Qur'an", "API", "data Al-Qur'an", "developer Muslim", "terjemahan", "tafsir", "murottal", "Indonesia"],
-    author: "Aura Al-Qur'an Team",
+    author: "AzoraX Al-Qur'an Team",
 };
 
 export const viewport = {

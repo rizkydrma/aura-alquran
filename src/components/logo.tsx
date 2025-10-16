@@ -28,8 +28,8 @@ interface LogoProps extends VariantProps<typeof logoTextVariants> {
 const Logo = ({ width = 40, height = 40, showText = true, size = "default", className }: LogoProps) => {
     return (
         <div className={clsx("flex items-center gap-2", className)}>
-            <Image src="/assets/aura-logo.png" alt="Aura Al-Qur'an Logo" width={width} height={height} priority />
-            {showText && <ShinyText text="Aura API Qur`an" disabled={false} speed={3} className={logoTextVariants({ size })} />}
+            <Image src="/assets/aura-logo.png" alt="AzoraX Logo" width={width} height={height} priority />
+            {showText && <ShinyText text="AzoraX API Muslim" disabled={false} speed={3} className={logoTextVariants({ size })} />}
         </div>
     );
 };
