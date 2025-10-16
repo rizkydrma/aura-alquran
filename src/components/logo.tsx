@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
+import ShinyText from "./ShinyText";
 
 const logoTextVariants = cva("font-bold tracking-tight", {
     variants: {
@@ -28,7 +29,7 @@ const Logo = ({ width = 40, height = 40, showText = true, size = "default", clas
     return (
         <div className={clsx("flex items-center gap-2", className)}>
             <Image src="/assets/aura-logo.png" alt="Aura Al-Qur'an Logo" width={width} height={height} priority />
-            {showText && <span className={logoTextVariants({ size })}>Aura API Qur`an</span>}
+            {showText && <ShinyText text="Aura API Qur`an" disabled={false} speed={3} className={logoTextVariants({ size })} />}
         </div>
     );
 };

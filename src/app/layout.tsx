@@ -1,4 +1,3 @@
-import footer from "@/components/footer";
 import navbar from "@/components/navbar";
 import { Layout } from "nextra-theme-docs";
 import "nextra-theme-docs/style.css";
@@ -6,6 +5,7 @@ import { Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
 import React from "react";
 import "./globals.css";
+import Footer from "@/components/footer";
 
 export const metadata = {
     title: "Aura Al-Qur'an API",
@@ -29,10 +29,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     navbar={navbar}
                     pageMap={await getPageMap()}
                     docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
-                    footer={footer}
                     darkMode={false}
                 >
                     {children}
+
+                    <Footer />
                 </Layout>
             </body>
         </html>
