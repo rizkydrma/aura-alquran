@@ -1,18 +1,19 @@
+import Footer from "@/components/footer";
 import navbar from "@/components/navbar";
+import { Metadata } from "next";
 import { Layout } from "nextra-theme-docs";
 import "nextra-theme-docs/style.css";
 import { Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
 import React from "react";
 import "./globals.css";
-import Footer from "@/components/footer";
+import { Providers } from "./providers";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "AzoraX Al-Qur'an API",
     description:
         "Data Al-Qur'an yang Cepat, Lengkap, dan Modern untuk Developer Muslim Indonesia. Dapatkan akșes ke data Surah, Ayat, Terjemahan, Tafsir, dan Audio Al-Qur'an dengan API yang terstruktur dan terverifikasi.",
     keywords: ["Al-Qur'an", "API", "data Al-Qur'an", "developer Muslim", "terjemahan", "tafsir", "murottal", "Indonesia"],
-    author: "AzoraX Al-Qur'an Team",
 };
 
 export const viewport = {
@@ -31,8 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
                     darkMode={false}
                 >
-                    {children}
-
+                    <Providers>{children}</Providers>
                     <Footer />
                 </Layout>
             </body>

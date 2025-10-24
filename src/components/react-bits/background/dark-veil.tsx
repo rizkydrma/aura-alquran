@@ -136,7 +136,7 @@ export default function DarkVeil({
         let frame = 0;
 
         const loop = () => {
-            const t = (performance.now() - start) / 1000;
+            // const t = (performance.now() - start) / 1000;
 
             program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
             program.uniforms.uHueShift.value = hueShift;

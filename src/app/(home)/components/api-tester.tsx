@@ -129,6 +129,7 @@ export default function APITester({ endpoint }: APITesterProps) {
                     options.body = JSON.parse(body);
                     options.body = JSON.stringify(options.body);
                 } catch (e) {
+                    console.log("ERROR:", e);
                     options.body = body;
                 }
             }
