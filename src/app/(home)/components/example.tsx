@@ -40,6 +40,7 @@ const apiEndpoints: APITesterProps["endpoint"][] = [
             { name: "surahId", type: "path", description: "Surah ID", required: true },
             { name: "page", type: "query", description: "Page number (default: 1)", required: false },
             { name: "limit", type: "query", description: "Items per page (default: 10)", required: false },
+            { name: "q", type: "query", description: "Search ayat based on arabic, translation, indonesia", required: false },
         ],
         example: {
             description: "Retrieve first page of surahs",
@@ -57,16 +58,6 @@ const apiEndpoints: APITesterProps["endpoint"][] = [
         example: {
             description: "Get user with surah ID 1 and ayat number 1",
             params: { surahId: "1", ayatNumber: "1" },
-        },
-    },
-    {
-        method: "GET",
-        path: "/search",
-        description: "Search for Ayat based on Arabic text or translation using full text search",
-        parameters: [{ name: "q", type: "query", description: "Search keywords (1-100 characters)", required: true }],
-        example: {
-            description: "Retrieve first page of surahs",
-            params: { q: "human" },
         },
     },
 ];

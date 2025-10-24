@@ -8,20 +8,30 @@ export default {
         title: "Documentation",
         type: "page",
     },
-    quran: {
-        title: "Read Al-Qur`an",
-        type: "page",
-    },
-    doa: {
-        title: "Doa",
-        type: "page",
-    },
-    dzikir: {
-        title: "Dzikir",
-        type: "page",
-    },
-    hadits: {
-        title: "Hadits",
-        type: "page",
+    products: {
+        type: "menu",
+        title: "Produk",
+        items: {
+            quran: {
+                title: "Quran",
+                href: "/products/quran",
+            },
+            hadis: {
+                title: "Hadis",
+                href: "/products/hadis",
+            },
+            doa: {
+                title: "Doa",
+                href: "/products/doa",
+            },
+            dzikir: {
+                title: "Dzikir",
+                href: "/products/dzikir",
+            },
+            asmaulhusna: {
+                title: "Asmaul Husna",
+                href: "/products/asmaul-husna",
+            },
+        },
     },
 };
