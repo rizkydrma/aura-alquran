@@ -9,7 +9,7 @@ export function useHadisGroupedBySource() {
     });
 }
 
-export function useInfiniteHadisBySourc(source: string, params?: { limit?: number; q?: string }) {
+export function useInfiniteHadisBySource(source: string, params?: { limit?: number; q?: string }) {
     return useInfiniteQuery({
         queryKey: ["hadis", source, params],
         queryFn: async ({ pageParam = 1 }) => getHadisBySource(source, { ...params, page: pageParam }),
