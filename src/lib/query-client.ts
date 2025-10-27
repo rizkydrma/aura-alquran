@@ -1,3 +1,4 @@
+import { IPagination } from "@/types";
 import { QueryClient } from "@tanstack/react-query";
 
 export const queryClient = new QueryClient({
@@ -9,3 +10,5 @@ export const queryClient = new QueryClient({
         },
     },
 });
+
+export const getNextPage = (meta: IPagination) => (meta.page < meta.total_page ? meta.page + 1 : undefined);

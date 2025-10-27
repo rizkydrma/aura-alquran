@@ -1,7 +1,11 @@
 export interface ISurah {
-    surahId: string;
-    name: string;
+    surahId: number;
+    arabic: string;
+    latin: string;
+    transliteration: string;
     translation: string;
-    numberOfAyats: number;
-    type: string;
+    numAyah: number;
+    page: number;
+    location: string;
+    uuid: string;
 }
