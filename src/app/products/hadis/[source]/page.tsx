@@ -1,13 +1,13 @@
 "use client";
 import { SurahSkeleton } from "@/components/skeleton/skeleton-surah";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import { useInfiniteHadisBySourc } from "@/lib/api/hadis";
+import { useInfiniteHadisBySource } from "@/lib/api/hadis";
 import { useParams } from "next/navigation";
 import * as React from "react";
 
 const HadisBySourcePage: React.FC = ({}) => {
     const { source } = useParams<{ source: string }>();
-    const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteHadisBySourc(source, { limit: 10 });
+    const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteHadisBySource(source, { limit: 10 });
 
     const loadMoreRef = useInfiniteScroll({
         enabled: hasNextPage && !isFetchingNextPage,
