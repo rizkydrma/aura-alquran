@@ -7,11 +7,6 @@ export async function getSurahs(params?: { page?: number; limit?: number; q?: st
     return apiClient<IPaginationResponse<ISurah>>(`/api/surahs?${search}`);
 }
 
-export async function getJuz(params?: { page?: number; limit?: number; q?: string }) {
-    const search = new URLSearchParams(params as Record<string, string>);
-    return apiClient<IPaginationResponse<ISurah>>(`/api/surahs/ayats/juz?${search}`);
-}
-
 export async function getSurahById(surahId: string) {
     return apiClient<ISurah>(`/api/surahs/${surahId}`);
 }

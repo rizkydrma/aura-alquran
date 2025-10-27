@@ -9,3 +9,14 @@ export interface IAyat {
     location: string;
     uuid: string;
 }
+
+export interface IJuz {
+    juz: number;
+    total_ayat: number;
+    surahs: {
+        surah_id: number;
+        arabic: string;
+        latin: string;
+        translation: string;
+    }[];
+}
