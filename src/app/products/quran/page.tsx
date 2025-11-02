@@ -32,7 +32,7 @@ const QuranContent = () => {
 
 const QuranPage = () => {
     return (
-        <Suspense fallback={<SurahSkeleton count={10} />}>
+        <Suspense fallback={<SurahSkeleton />}>
             <QuranContent />
         </Suspense>
     );

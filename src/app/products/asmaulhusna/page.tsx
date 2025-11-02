@@ -43,7 +43,7 @@ const AsmaulHusnaPage: React.FC = ({}) => {
                 </div>
             ))}
 
-            {isFetchingNextPage && <SurahSkeleton count={3} />}
+            {isFetchingNextPage && <SurahSkeleton />}
 
             <div ref={loadMoreRef} className="h-10" />
         </div>

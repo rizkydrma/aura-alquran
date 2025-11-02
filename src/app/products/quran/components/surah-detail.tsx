@@ -1,12 +1,12 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
 import { SurahSkeleton } from "@/components/skeleton/skeleton-surah";
 import { Button } from "@/components/ui/button";
-import { Play, Pause } from "lucide-react";
-import { useInfiniteAyats } from "@/lib/api/ayats";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { useInfiniteAyats } from "@/lib/api/ayats";
+import { Pause, Play } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 const SurahDetail = () => {
     const { surahId } = useParams<{ surahId: string }>();
