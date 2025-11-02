@@ -27,7 +27,7 @@ export function useJuz() {
 
 export function useInfiniteAyats(surahId: string, params?: { limit?: number; q?: string }) {
     return useInfiniteQuery({
-        queryKey: ["ayats", params],
+        queryKey: ["ayats", params, surahId],
         queryFn: async ({ pageParam = 1 }) => getAyats(surahId, { ...params, page: pageParam }),
         getNextPageParam: (lastPage) => getNextPage(lastPage.meta),
         initialPageParam: 1,
