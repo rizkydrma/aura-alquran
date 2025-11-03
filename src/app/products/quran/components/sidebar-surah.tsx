@@ -1,12 +1,14 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { SurahSkeleton } from "@/components/skeleton/skeleton-surah";
+import { SidebarSurahSkeleton } from "@/components/skeleton/skeleton-surah";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useInfiniteSurahs } from "@/lib/api/surahs";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import * as React from "react";
+import SpotlightCard from "@/components/react-bits/SpotlightCard";
+import { cn } from "@/lib/utils";
 
 const SidebarSurah: React.FC = ({}) => {
     const { surahId } = useParams<{ surahId: string }>();
@@ -29,12 +31,12 @@ const SidebarSurah: React.FC = ({}) => {
     });
 
     return (
-        <div className="h-[600px] overflow-y-auto">
+        <div className="h-[80dvh] overflow-y-auto">
             <div className="mb-4">
                 <Input placeholder="Cari surah..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full" />
             </div>
             {isLoading || !data ? (
-                <SurahSkeleton />
+                <SidebarSurahSkeleton align="vertical" length={5} />
             ) : debouncedQuery && isFetching ? (
                 <div className="py-4 text-center text-gray-500">Mencari surah...</div>
             ) : (
@@ -44,35 +46,40 @@ const SidebarSurah: React.FC = ({}) => {
                             {page.data.map((surah) => {
                                 const isActive = surahId === surah.surahId.toString();
                                 return (
-                                    <Link
-                                        href={`/products/quran/surah/${surah?.surahId}`}
-                                        key={surah.surahId}
-                                        className={`flex cursor-pointer items-center justify-between rounded-xl p-4 shadow transition hover:shadow-md ${
-                                            isActive
-                                                ? "border-2 border-purple-400 bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.8)] dark:border-purple-500 dark:shadow-[0_0_15px_rgba(129,140,248,0.8)]"
-                                                : "bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
-                                        }`}
-                                        prefetch
-                                    >
-                                        <div>
-                                            <h3 className={`font-semibold ${isActive ? "text-white" : "text-gray-800 dark:text-gray-100"}`}>
-                                                {surah.arabic}
-                                            </h3>
-                                            <h3 className={`font-semibold ${isActive ? "text-white" : "text-gray-800 dark:text-gray-100"}`}>
-                                                {surah.latin}
-                                            </h3>
-                                            <p className={`text-sm ${isActive ? "text-purple-200" : "text-gray-500 dark:text-gray-400"}`}>
-                                                {surah.translation}
-                                            </p>
-                                        </div>
-                                        <span className={`font-semibold ${isActive ? "text-purple-100" : "text-emerald-600"}`}>{surah.surahId}</span>
+                                    <Link href={`/products/quran/surah/${surah?.surahId}`} key={surah.surahId} prefetch>
+                                        <SpotlightCard
+                                            className={cn(
+                                                "flex cursor-pointer items-start justify-between gap-4 rounded-lg !p-4",
+                                                isActive ? "bg-purple-800" : "bg-neutral-800",
+                                            )}
+                                            spotlightColor="rgba(96, 16, 221, 0.4)"
+                                        >
+                                            <div
+                                                className={cn(
+                                                    "grid h-10 w-10 shrink-0 place-items-center rounded-md",
+                                                    isActive ? "bg-purple-700" : "bg-neutral-700",
+                                                )}
+                                            >
+                                                <span className="font-semibold text-purple-100">{surah.surahId}</span>
+                                            </div>
+                                            <div className="flex w-full shrink justify-between">
+                                                <div>
+                                                    <h3 className="font-semibold text-gray-800 dark:text-gray-100">{surah.latin}</h3>
+                                                    <p className="text-xs text-gray-500 dark:text-gray-400">{surah.translation}</p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <h3 className="font-semibold text-gray-800 dark:text-gray-100">{surah.arabic}</h3>
+                                                    <p className="text-xs text-gray-500 dark:text-gray-400">{surah.numAyah} Ayat</p>
+                                                </div>
+                                            </div>
+                                        </SpotlightCard>
                                     </Link>
                                 );
                             })}
                         </div>
                     ))}
 
-                    {isFetchingNextPage && <SurahSkeleton />}
+                    {isFetchingNextPage && <SidebarSurahSkeleton align="vertical" />}
 
                     <div ref={loadMoreRef} className="h-10" />
                 </>
