@@ -1,5 +1,6 @@
 "use client";
 
+import Bismillah from "@/components/bismillah";
 import SpotlightCard from "@/components/react-bits/SpotlightCard";
 import { SurahDetailSkeleton } from "@/components/skeleton/skeleton-surah";
 import { Button } from "@/components/ui/button";
@@ -87,7 +88,14 @@ const SurahDetail = () => {
     if (isError) return <div className="py-8 text-center text-red-500">Gagal memuat data: {(error as Error).message}</div>;
 
     return (
-        <section>
+        <section className="space-y-4">
+            <SpotlightCard
+                className="flex items-center justify-center rounded-xl border bg-white p-8 py-4 dark:bg-neutral-900"
+                spotlightColor="rgba(96, 16, 221, 0.4)"
+            >
+                <Bismillah />
+            </SpotlightCard>
+
             {/* List Ayat */}
             <div className="space-y-6">
                 {data?.pages.map((page, i) => (
