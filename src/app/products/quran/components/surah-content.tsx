@@ -13,7 +13,7 @@ const SurahContent: React.FC = ({}) => {
         onIntersect: fetchNextPage,
     });
 
-    if (isLoading) return <SurahSkeleton />;
+    if (isLoading) return <SurahSkeleton length={9} />;
 
     if (isError)
         return (
@@ -52,7 +52,7 @@ const SurahContent: React.FC = ({}) => {
                 </div>
             ))}
 
-            {isFetchingNextPage && <SurahSkeleton />}
+            {isFetchingNextPage && <SurahSkeleton length={9} />}
 
             <div ref={loadMoreRef} className="h-10" />
         </div>

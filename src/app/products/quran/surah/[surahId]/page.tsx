@@ -6,7 +6,7 @@ export default function AyatListPage() {
         <section className="relative mx-auto max-w-7xl p-4">
             <div className="flex gap-8">
                 {/* Sticky Sidebar */}
-                <aside className="w-64 flex-shrink-0">
+                <aside className="w-64 shrink-0">
                     <div className="sticky top-4">
                         <SidebarSurah />
                     </div>

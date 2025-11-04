@@ -7,7 +7,7 @@ export const SurahSkeleton = ({ align = "horizontal", length = 3 }: { align?: "v
             {Array.from({ length }, (_, i) => (
                 <div className="animate-pulse space-y-3" key={i}>
                     <div className="flex items-start justify-between gap-4 rounded-lg bg-gray-200 p-8 dark:bg-neutral-800">
-                        <div className="h-10 w-10 rounded bg-neutral-300 dark:bg-neutral-700" />
+                        <div className="h-10 w-10 shrink-0 rounded bg-neutral-300 dark:bg-neutral-700" />
                         <div className="w-full space-y-2">
                             <div className="h-6 w-full rounded bg-neutral-300 dark:bg-neutral-700" />
                             <div className="h-4 w-full rounded bg-neutral-300 dark:bg-neutral-700" />
