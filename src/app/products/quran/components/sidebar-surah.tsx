@@ -51,14 +51,14 @@ const SidebarSurah: React.FC = ({}) => {
                                             <SpotlightCard
                                                 className={cn(
                                                     "flex cursor-pointer items-start justify-between gap-4 rounded-lg !p-4",
-                                                    isActive ? "bg-purple-800" : "bg-neutral-800",
+                                                    isActive ? "bg-gradient-to-tr from-purple-800 to-purple-950" : "bg-neutral-800",
                                                 )}
                                                 spotlightColor="rgba(96, 16, 221, 0.4)"
                                             >
                                                 <div
                                                     className={cn(
                                                         "grid h-10 w-10 shrink-0 place-items-center rounded-md",
-                                                        isActive ? "bg-purple-700" : "bg-neutral-700",
+                                                        isActive ? "bg-gradient-to-bl from-purple-800 to-purple-950" : "bg-neutral-700",
                                                     )}
                                                 >
                                                     <span className="font-semibold text-purple-100">{surah.surahId}</span>
