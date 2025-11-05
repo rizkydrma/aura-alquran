@@ -2,38 +2,61 @@
 
 import { Button } from "@/components/ui/button";
 import { IAyat } from "@/lib/api/ayats";
-import { PauseIcon, PlayIcon, XIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { PauseIcon, PlayIcon, SkipBackIcon, SkipForwardIcon, XIcon } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-interface AyatAudioPlayerProps {
-    ayat: IAyat | null;
+interface Props {
+    ayatList: IAyat[]; // merged ayat list across pages
+    currentIndex: number | null;
+    setCurrentIndex: (i: number | null) => void;
+    fetchNextPage: () => Promise<unknown> | void;
+    hasNextPage: boolean;
+    isFetchingNextPage: boolean;
     onClose: () => void;
 }
 
-const AyatAudioPlayer = ({ ayat, onClose }: AyatAudioPlayerProps) => {
+const AyatAudioPlayer = ({ ayatList, currentIndex, setCurrentIndex, fetchNextPage, hasNextPage, isFetchingNextPage, onClose }: Props) => {
+    const audioRef = useRef<HTMLAudioElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const audioRef = useRef<HTMLAudioElement | null>(null);
+    // prevent duplicate fetches triggered by ended while fetching
+    const isPrefetchingRef = useRef(false);
 
-    // Load ulang audio setiap ayat berubah
+    // derived current ayat
+    const ayat = currentIndex !== null && currentIndex >= 0 ? (ayatList[currentIndex] ?? null) : null;
+
+    // play when current index changes
     useEffect(() => {
         const audio = audioRef.current;
-        if (!audio || !ayat?.audio) return;
+        if (!audio) return;
 
-        audio.src = ayat.audio;
-        audio.load();
-
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(() => setIsPlaying(false));
+        if (!ayat) {
+            // noop: if no ayat selected, pause and reset
+            audio.pause();
+            audio.removeAttribute("src");
+            audio.load();
+            setIsPlaying(false);
+            setCurrentTime(0);
+            setDuration(0);
+            return;
         }
 
+        // set src and play
+        audio.src = ayat.audio;
+        audio.load();
+        const p = audio.play();
+        if (p !== undefined) {
+            p.catch(() => {
+                // autoplay prevented, keep paused state
+                setIsPlaying(false);
+            });
+        }
+        // reset time & duration will be set by loadedmetadata
         setCurrentTime(0);
-        setIsPlaying(true);
     }, [ayat]);
 
-    // Attach event listener setiap kali ada audio baru
+    // attach listener and cleanup; bind on every ayat change ensures correct audio events
     useEffect(() => {
         const audio = audioRef.current;
         if (!audio) return;
@@ -42,27 +65,71 @@ const AyatAudioPlayer = ({ ayat, onClose }: AyatAudioPlayerProps) => {
         const handleDur = () => setDuration(audio.duration || 0);
         const handlePause = () => setIsPlaying(false);
         const handlePlay = () => setIsPlaying(true);
-        const handleEnd = () => {
+        const handleEnded = async () => {
             setIsPlaying(false);
             setCurrentTime(0);
+
+            // auto-next logic:
+            if (currentIndex === null) return;
+
+            const isLastInList = currentIndex >= ayatList.length - 1;
+
+            if (!isLastInList) {
+                setCurrentIndex(currentIndex + 1);
+                return;
+            }
+
+            // reached last known item
+            if (hasNextPage && !isFetchingNextPage && !isPrefetchingRef.current) {
+                try {
+                    isPrefetchingRef.current = true;
+                    const prevLen = ayatList.length;
+                    // fetchNextPage may return a promise
+                    const res = fetchNextPage();
+                    if (res instanceof Promise) await res;
+                    // small delay to let react-query merge pages; but we can just check length after microtask
+                    // Note: merged list is coming from parent; after it updates, currentIndex handler (above) will run
+                    // if there are new items we proceed to next index
+                    // Wait for next event loop tick for parent to update ayatList
+                    await new Promise((r) => setTimeout(r, 150)); // small wait; tweak as needed
+                    const newLen = ayatList.length;
+                    if (newLen > prevLen) {
+                        setCurrentIndex(currentIndex + 1);
+                    } else {
+                        // no more items returned, stop playback
+                        setIsPlaying(false);
+                    }
+                } catch (e) {
+                    // fetch failed; keep stopped
+                    console.error("fetchNextPage error:", e);
+                    setIsPlaying(false);
+                } finally {
+                    isPrefetchingRef.current = false;
+                }
+                return;
+            }
+
+            // no next page available
+            setIsPlaying(false);
         };
 
         audio.addEventListener("timeupdate", handleTime);
         audio.addEventListener("loadedmetadata", handleDur);
         audio.addEventListener("pause", handlePause);
         audio.addEventListener("play", handlePlay);
-        audio.addEventListener("ended", handleEnd);
+        audio.addEventListener("ended", handleEnded);
 
         return () => {
             audio.removeEventListener("timeupdate", handleTime);
             audio.removeEventListener("loadedmetadata", handleDur);
             audio.removeEventListener("pause", handlePause);
             audio.removeEventListener("play", handlePlay);
-            audio.removeEventListener("ended", handleEnd);
+            audio.removeEventListener("ended", handleEnded);
         };
-    }, [ayat]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentIndex, ayatList, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-    const togglePlay = () => {
+    const togglePlay = useCallback(() => {
         const audio = audioRef.current;
         if (!audio) return;
         if (audio.paused) {
@@ -70,16 +137,45 @@ const AyatAudioPlayer = ({ ayat, onClose }: AyatAudioPlayerProps) => {
         } else {
             audio.pause();
         }
-    };
+    }, []);
 
     const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
         const audio = audioRef.current;
-        if (!audio || !duration) return;
+        if (!audio || !duration || !e.currentTarget) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
         const progress = Math.min(Math.max(clickX / rect.width, 0), 1);
         audio.currentTime = progress * duration;
         setCurrentTime(audio.currentTime);
+    };
+
+    // previous / next manual controls
+    const handleNext = async () => {
+        if (currentIndex === null) return;
+        const isLastInList = currentIndex >= ayatList.length - 1;
+        if (!isLastInList) {
+            setCurrentIndex(currentIndex + 1);
+            return;
+        }
+        if (hasNextPage && !isFetchingNextPage && !isPrefetchingRef.current) {
+            isPrefetchingRef.current = true;
+            try {
+                const prevLen = ayatList.length;
+                const res = fetchNextPage();
+                if (res instanceof Promise) await res;
+                await new Promise((r) => setTimeout(r, 150));
+                if (ayatList.length > prevLen) setCurrentIndex(currentIndex + 1);
+            } catch (e) {
+                console.error(e);
+            } finally {
+                isPrefetchingRef.current = false;
+            }
+        }
+    };
+
+    const handlePrev = () => {
+        if (currentIndex === null) return;
+        if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
     };
 
     if (!ayat) return null;
@@ -114,26 +210,35 @@ const AyatAudioPlayer = ({ ayat, onClose }: AyatAudioPlayerProps) => {
                                 <span className="text-sm font-bold text-purple-600 dark:text-purple-200">{ayat.ayatNumber}</span>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Ayat {ayat.ayatNumber}</p>
+                                <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Ayat {ayat.latin}</p>
                                 <p className="text-xs text-neutral-500 dark:text-neutral-400">Surah {ayat.surahId}</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="icon" onClick={handlePrev}>
+                                <SkipBackIcon className="h-6 w-6" />
+                            </Button>
+
+                            <Button variant="ghost" size="icon" onClick={togglePlay}>
+                                {isPlaying ? <PauseIcon className="h-6 w-6" /> : <PlayIcon className="h-6 w-6" />}
+                            </Button>
+
                             <Button
-                                variant="outline"
+                                variant="ghost"
                                 size="icon"
                                 onClick={() => {
                                     const audio = audioRef.current;
                                     if (audio) audio.pause();
                                     onClose();
+                                    setCurrentIndex(null);
                                 }}
-                                className="h-10 w-10"
                             >
-                                <XIcon className="h-5 w-5" />
+                                <XIcon className="h-6 w-6" />
                             </Button>
-                            <Button variant="default" size="icon" onClick={togglePlay} className="h-12 w-12">
-                                {isPlaying ? <PauseIcon className="h-6 w-6" /> : <PlayIcon className="h-6 w-6" />}
+
+                            <Button variant="ghost" size="icon" onClick={handleNext}>
+                                <SkipForwardIcon className="h-6 w-6" />
                             </Button>
                         </div>
                     </div>

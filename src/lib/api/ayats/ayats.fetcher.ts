@@ -12,5 +12,10 @@ export async function getAyatByNumber(surahId: string, ayatNumber: string) {
 }
 
 export async function getJuz() {
-    return apiClient<{ data: IJuz[] }>(`/api/surahs/ayats/juz`);
+    return apiClient<{ data: IJuz[] }>(`/surahs/ayats/juz`);
+}
+
+export async function getAyatByJuzNumber(juzId: string, params?: { page?: number; limit?: number; q?: string }) {
+    const search = new URLSearchParams(params as Record<string, string>);
+    return apiClient<{ data: IAyat[]; meta: IPagination }>(`/surahs/ayats/juz/${juzId}?${search}`);
 }

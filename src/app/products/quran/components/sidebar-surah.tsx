@@ -45,9 +45,9 @@ const SidebarSurah: React.FC = ({}) => {
                         {data.pages.map((page, i) => (
                             <div key={i} className="grid grid-cols-1 gap-3 text-xs">
                                 {page.data.map((surah) => {
-                                    const isActive = surahId === surah.surahId.toString();
+                                    const isActive = surahId === surah.id.toString();
                                     return (
-                                        <Link href={`/products/quran/surah/${surah?.surahId}`} key={surah.surahId} prefetch>
+                                        <Link href={`/products/quran/surah/${surah?.id}`} key={surah.id} prefetch>
                                             <SpotlightCard
                                                 className={cn(
                                                     "flex cursor-pointer items-start justify-between gap-4 rounded-lg !p-4",
@@ -61,7 +61,7 @@ const SidebarSurah: React.FC = ({}) => {
                                                         isActive ? "bg-gradient-to-bl from-purple-800 to-purple-950" : "bg-neutral-700",
                                                     )}
                                                 >
-                                                    <span className="font-semibold text-purple-100">{surah.surahId}</span>
+                                                    <span className="font-semibold text-purple-100">{surah.id}</span>
                                                 </div>
                                                 <div className="flex w-full shrink justify-between">
                                                     <div>

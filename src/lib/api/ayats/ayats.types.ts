@@ -8,13 +8,14 @@ export interface IAyat {
     audio: string;
     location: string;
     uuid: string;
+    footnotes?: string;
 }
 
 export interface IJuz {
     juz: number;
     total_ayat: number;
     surahs: {
-        surah_id: number;
+        id: number;
         arabic: string;
         latin: string;
         translation: string;

@@ -45,7 +45,7 @@ const JuzContent: React.FC = ({}) => {
                                     return (
                                         <>
                                             {visible.map((surah, i) => (
-                                                <p key={surah?.surah_id} className="text-sm text-gray-500 dark:text-gray-400">
+                                                <p key={surah?.id} className="text-sm text-gray-500 dark:text-gray-400">
                                                     {surah?.latin}
                                                     {i < visible.length - 1 ? ", " : " "}
                                                 </p>

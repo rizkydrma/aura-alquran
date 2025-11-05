@@ -1,18 +1,16 @@
 "use client";
 
-import Bismillah from "@/components/bismillah";
-import SpotlightCard from "@/components/react-bits/SpotlightCard";
 import { SurahDetailSkeleton } from "@/components/skeleton/skeleton-surah";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import { IAyat, useInfiniteAyats } from "@/lib/api/ayats";
+import { IAyat, useInfiniteAyatsByJuzNumber } from "@/lib/api/ayats";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import AyatAudioPlayer from "./ayat-audio-player";
 import AyatDetail from "./ayat-detail";
 
-const SurahDetail = () => {
-    const { surahId } = useParams<{ surahId: string }>();
-    const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteAyats(surahId, { limit: 20 });
+const JuzDetail = () => {
+    const { juzId } = useParams<{ juzId: string }>();
+    const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteAyatsByJuzNumber(juzId, { limit: 20 });
 
     const loadMoreRef = useInfiniteScroll({
         enabled: hasNextPage,
@@ -32,13 +30,6 @@ const SurahDetail = () => {
 
     return (
         <section className="space-y-4">
-            <SpotlightCard
-                className="flex items-center justify-center rounded-xl border bg-white p-8 py-4 dark:bg-neutral-900"
-                spotlightColor="rgba(96, 16, 221, 0.4)"
-            >
-                <Bismillah />
-            </SpotlightCard>
-
             {/* List Ayat */}
             <div className="space-y-6">
                 {data?.pages.map((page, i) => (
@@ -68,4 +59,4 @@ const SurahDetail = () => {
     );
 };
 
-export default SurahDetail;
+export default JuzDetail;

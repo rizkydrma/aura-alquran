@@ -1,4 +1,4 @@
-import { getAyatByNumber, getAyats, getJuz } from "@/lib/api/ayats";
+import { getAyatByJuzNumber, getAyatByNumber, getAyats, getJuz } from "@/lib/api/ayats";
 import { getNextPage } from "@/lib/query-client";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
@@ -29,6 +29,16 @@ export function useInfiniteAyats(surahId: string, params?: { limit?: number; q?:
     return useInfiniteQuery({
         queryKey: ["ayats", params, surahId],
         queryFn: async ({ pageParam = 1 }) => getAyats(surahId, { ...params, page: pageParam }),
+        getNextPageParam: (lastPage) => getNextPage(lastPage.meta),
+        initialPageParam: 1,
+        staleTime: 1000 * 60 * 5,
+    });
+}
+
+export function useInfiniteAyatsByJuzNumber(juzId: string, params?: { limit?: number; q?: string }) {
+    return useInfiniteQuery({
+        queryKey: ["ayats-by-juz-number", juzId, params],
+        queryFn: async ({ pageParam = 1 }) => getAyatByJuzNumber(juzId, { ...params, page: pageParam }),
         getNextPageParam: (lastPage) => getNextPage(lastPage.meta),
         initialPageParam: 1,
         staleTime: 1000 * 60 * 5,

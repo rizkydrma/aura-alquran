@@ -1,5 +1,5 @@
 export interface ISurah {
-    surahId: number;
+    id: number;
     arabic: string;
     latin: string;
     transliteration: string;
@@ -8,4 +8,6 @@ export interface ISurah {
     page: number;
     location: string;
     uuid: string;
+    introSurah: string;
+    outroSurah: string;
 }

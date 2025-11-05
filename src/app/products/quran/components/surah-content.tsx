@@ -28,13 +28,13 @@ const SurahContent: React.FC = ({}) => {
             {data?.pages.map((page, i) => (
                 <div key={i} className="grid grid-cols-3 gap-3">
                     {page.data.map((surah) => (
-                        <Link href={`/products/quran/surah/${surah?.surahId}`} key={surah.surahId} prefetch>
+                        <Link href={`/products/quran/surah/${surah?.id}`} key={surah.id} prefetch>
                             <SpotlightCard
                                 className="flex cursor-pointer items-start justify-between gap-4 rounded-lg bg-neutral-800 p-4"
                                 spotlightColor="rgba(96, 16, 221, 0.4)"
                             >
                                 <div className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-neutral-700">
-                                    <span className="font-semibold text-purple-100">{surah.surahId}</span>
+                                    <span className="font-semibold text-purple-100">{surah.id}</span>
                                 </div>
                                 <div className="flex w-full shrink justify-between">
                                     <div>
