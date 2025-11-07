@@ -1,5 +1,5 @@
 export interface IAyat {
-    ayatNumber: string;
+    id: string;
     surahId: string;
     arabic: string;
     translation: string;

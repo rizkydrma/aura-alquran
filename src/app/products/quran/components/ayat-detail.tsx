@@ -4,6 +4,7 @@ import { IAyat } from "@/lib/api/ayats";
 import { formatTranslationWithSuperscript } from "@/lib/utils";
 import { PlayIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
+import TafsirDialog from "./tafsir-dialog";
 
 interface AyatDetailProps {
     ayat: IAyat;
@@ -16,7 +17,7 @@ const AyatDetail: React.FC<AyatDetailProps> = ({ absoluteIndex, ayat, setCurrent
         <SpotlightCard className="rounded-xl border bg-white p-8 dark:bg-neutral-900" spotlightColor="rgba(96, 16, 221, 0.4)">
             <div className="flex items-start justify-between gap-4">
                 <div className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-purple-800 text-sm font-semibold text-neutral-100">
-                    {ayat?.ayatNumber}
+                    {ayat?.id}
                 </div>
 
                 <div className="space-y-2 text-right">
@@ -40,6 +41,8 @@ const AyatDetail: React.FC<AyatDetailProps> = ({ absoluteIndex, ayat, setCurrent
             </div>
 
             <div className="mt-8 flex items-center justify-end gap-4">
+                <TafsirDialog ayat={ayat} />
+
                 {ayat.audio && (
                     <Button size="sm" onClick={() => setCurrentIndex(absoluteIndex === -1 ? (undefined as any) : absoluteIndex)}>
                         <PlayIcon className="h-4 w-4" />
