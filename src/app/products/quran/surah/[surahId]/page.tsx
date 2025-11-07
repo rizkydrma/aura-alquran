@@ -1,7 +1,12 @@
 import SidebarSurah from "../../components/sidebar-surah";
 import SurahDetail from "../../components/surah-detail";
 
-export default function AyatListPage() {
+interface PageProps {
+    params: Promise<{ surahId: string }>;
+}
+
+const AyatListPage = async ({ params }: PageProps) => {
+    const { surahId } = await params;
     return (
         <section className="relative mx-auto max-w-7xl p-4">
             <div className="flex gap-8">
@@ -12,9 +17,11 @@ export default function AyatListPage() {
                     </div>
                 </aside>
                 <main className="min-w-0 flex-1">
-                    <SurahDetail />
+                    <SurahDetail surahId={surahId} />
                 </main>
             </div>
         </section>
     );
-}
+};
+
+export default AyatListPage;

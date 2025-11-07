@@ -8,5 +8,5 @@ export async function getSurahs(params?: { page?: number; limit?: number; q?: st
 }
 
 export async function getSurahById(surahId: string) {
-    return apiClient<ISurah>(`/api/surahs/${surahId}`);
+    return apiClient<{ data: ISurah }>(`/api/surahs/${surahId}`);
 }

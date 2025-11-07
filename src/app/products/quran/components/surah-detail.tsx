@@ -5,13 +5,16 @@ import SpotlightCard from "@/components/react-bits/SpotlightCard";
 import { SurahDetailSkeleton } from "@/components/skeleton/skeleton-surah";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { IAyat, useInfiniteAyats } from "@/lib/api/ayats";
-import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import AyatAudioPlayer from "./ayat-audio-player";
 import AyatDetail from "./ayat-detail";
+import SurahInfo from "./surah-info";
 
-const SurahDetail = () => {
-    const { surahId } = useParams<{ surahId: string }>();
+interface SurahDetailProps {
+    surahId: string;
+}
+
+const SurahDetail = ({ surahId }: SurahDetailProps) => {
     const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteAyats(surahId, { limit: 20 });
 
     const loadMoreRef = useInfiniteScroll({
@@ -32,6 +35,7 @@ const SurahDetail = () => {
 
     return (
         <section className="space-y-4">
+            <SurahInfo surahId={surahId} />
             <SpotlightCard
                 className="flex items-center justify-center rounded-xl border bg-white p-8 py-4 dark:bg-neutral-900"
                 spotlightColor="rgba(96, 16, 221, 0.4)"

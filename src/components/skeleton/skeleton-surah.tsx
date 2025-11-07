@@ -60,3 +60,22 @@ export const SurahDetailSkeleton = ({ length = 3 }: { length?: number }) => {
         </div>
     );
 };
+
+export const SurahInfoSkeleton = () => {
+    return (
+        <div className="flex flex-col items-center space-y-5 rounded-xl bg-neutral-800 p-6 text-center shadow-md">
+            {/* Header - Nama & Arti */}
+            <div className="flex flex-col items-center justify-center space-y-2">
+                <Skeleton className="h-10 w-40 bg-neutral-700" /> {/* Surah name */}
+                <Skeleton className="h-8 w-28 bg-neutral-700" /> {/* Translation */}
+                <Skeleton className="h-6 w-32 bg-neutral-700" /> {/* Translation */}
+            </div>
+            <Skeleton className="h-20 w-[80%] rounded-md bg-neutral-700" /> {/* Jumlah ayat */}
+            {/* Button group */}
+            <div className="flex gap-3 pt-2">
+                <Skeleton className="h-9 w-28 rounded-md bg-neutral-700" />
+                <Skeleton className="h-9 w-28 rounded-md bg-neutral-700" />
+            </div>
+        </div>
+    );
+};
