@@ -8,7 +8,6 @@ import { IAyat, useInfiniteAyats } from "@/lib/api/ayats";
 import { useMemo, useState } from "react";
 import AyatAudioPlayer from "./ayat-audio-player";
 import AyatDetail from "./ayat-detail";
-import SurahInfo from "./surah-info";
 
 interface SurahDetailProps {
     surahId: string;
@@ -35,7 +34,6 @@ const SurahDetail = ({ surahId }: SurahDetailProps) => {
 
     return (
         <section className="space-y-4">
-            <SurahInfo surahId={surahId} />
             <SpotlightCard
                 className="flex items-center justify-center rounded-xl border bg-white p-8 py-4 dark:bg-neutral-900"
                 spotlightColor="rgba(96, 16, 221, 0.4)"

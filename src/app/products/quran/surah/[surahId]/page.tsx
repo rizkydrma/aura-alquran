@@ -1,5 +1,6 @@
 import SidebarSurah from "../../components/sidebar-surah";
 import SurahDetail from "../../components/surah-detail";
+import SurahInfo from "../../components/surah-info";
 
 interface PageProps {
     params: Promise<{ surahId: string }>;
@@ -16,7 +17,8 @@ const AyatListPage = async ({ params }: PageProps) => {
                         <SidebarSurah />
                     </div>
                 </aside>
-                <main className="min-w-0 flex-1">
+                <main className="min-w-0 flex-1 space-y-4">
+                    <SurahInfo surahId={surahId} />
                     <SurahDetail surahId={surahId} />
                 </main>
             </div>

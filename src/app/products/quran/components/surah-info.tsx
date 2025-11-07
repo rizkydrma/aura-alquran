@@ -1,7 +1,7 @@
 "use client";
 
 import SpotlightCard from "@/components/react-bits/SpotlightCard";
-import { SurahDetailSkeleton } from "@/components/skeleton/skeleton-surah";
+import { SurahInfoSkeleton } from "@/components/skeleton/skeleton-surah";
 import { useSurahDetail } from "@/lib/api/surahs";
 import { BookOpenIcon, FileTextIcon, InfoIcon, MapPinIcon, XIcon } from "lucide-react";
 import { useState } from "react";
@@ -16,7 +16,7 @@ const SurahInfo = ({ surahId }: SurahInfoProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState<{ title: string; content: string } | null>(null);
 
-    if (isLoading) return <SurahDetailSkeleton />;
+    if (isLoading) return <SurahInfoSkeleton />;
     if (isError) return <div className="py-8 text-center text-red-500">Gagal memuat data: {(error as Error).message}</div>;
 
     const surah = data?.data;
