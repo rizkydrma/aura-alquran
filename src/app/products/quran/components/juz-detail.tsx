@@ -35,9 +35,9 @@ const JuzDetail = () => {
                 {data?.pages.map((page, i) => (
                     <div key={i} className="space-y-4">
                         {page.data.map((ayat) => {
-                            const absoluteIndex = mergedAyats.findIndex((a) => a.uuid === ayat.uuid);
+                            const absoluteIndex = mergedAyats.findIndex((a) => a.id === ayat.id);
 
-                            return <AyatDetail key={ayat?.uuid} absoluteIndex={absoluteIndex} ayat={ayat} setCurrentIndex={setCurrentIndex} />;
+                            return <AyatDetail key={ayat?.id} absoluteIndex={absoluteIndex} ayat={ayat} setCurrentIndex={setCurrentIndex} />;
                         })}
                     </div>
                 ))}

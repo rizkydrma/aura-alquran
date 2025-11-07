@@ -1,5 +1,6 @@
 export interface IAyat {
     id: string;
+    ayatNumber: number;
     surahId: string;
     arabic: string;
     translation: string;
@@ -7,7 +8,6 @@ export interface IAyat {
     latin: string;
     audio: string;
     location: string;
-    uuid: string;
     footnotes?: string;
 }
 

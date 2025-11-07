@@ -206,12 +206,14 @@ const AyatAudioPlayer = ({ ayatList, currentIndex, setCurrentIndex, fetchNextPag
                     {/* Controls */}
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900">
-                                <span className="text-sm font-bold text-purple-600 dark:text-purple-200">{ayat.id}</span>
+                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900">
+                                <span className="text-sm font-bold text-purple-600 dark:text-purple-200">{ayat?.ayatNumber}</span>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Ayat {ayat.latin}</p>
-                                <p className="text-xs text-neutral-500 dark:text-neutral-400">Surah {ayat.surahId}</p>
+                                <p className="line-clamp-1 text-sm font-medium text-neutral-900 dark:text-neutral-100">{ayat.latin}</p>
+                                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                                    Surah {ayat.surahId} - Ayat {ayat?.ayatNumber}
+                                </p>
                             </div>
                         </div>
 

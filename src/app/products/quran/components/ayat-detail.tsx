@@ -13,11 +13,12 @@ interface AyatDetailProps {
 }
 
 const AyatDetail: React.FC<AyatDetailProps> = ({ absoluteIndex, ayat, setCurrentIndex }) => {
+    console.log({ ayat });
     return (
         <SpotlightCard className="rounded-xl border bg-white p-8 dark:bg-neutral-900" spotlightColor="rgba(96, 16, 221, 0.4)">
             <div className="flex items-start justify-between gap-4">
                 <div className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-purple-800 text-sm font-semibold text-neutral-100">
-                    {ayat?.id}
+                    {ayat?.ayatNumber}
                 </div>
 
                 <div className="space-y-2 text-right">
