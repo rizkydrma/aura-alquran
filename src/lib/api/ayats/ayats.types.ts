@@ -9,6 +9,11 @@ export interface IAyat {
     audio: string;
     location: string;
     footnotes?: string;
+    surah: {
+        arabic: string;
+        latin: string;
+        translation: string;
+    };
 }
 
 export interface IJuz {

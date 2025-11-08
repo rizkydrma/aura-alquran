@@ -32,7 +32,7 @@ const SidebarSurah: React.FC = ({}) => {
 
     return (
         <div className="relative">
-            <div className="h-[88dvh] overflow-y-auto [mask-image:linear-gradient(to_bottom,black_80%,transparent_100%)]">
+            <div className="h-[80dvh] overflow-y-auto [mask-image:linear-gradient(to_bottom,black_80%,transparent_100%)]">
                 <div className="mb-4">
                     <Input placeholder="Cari surah..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full" />
                 </div>

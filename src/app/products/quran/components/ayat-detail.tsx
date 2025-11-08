@@ -2,18 +2,24 @@ import SpotlightCard from "@/components/react-bits/SpotlightCard";
 import { Button } from "@/components/ui/button";
 import { IAyat } from "@/lib/api/ayats";
 import { formatTranslationWithSuperscript } from "@/lib/utils";
-import { PlayIcon } from "lucide-react";
+import { PauseIcon, PlayIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import TafsirDialog from "./tafsir-dialog";
 
 interface AyatDetailProps {
     ayat: IAyat;
     absoluteIndex: number;
+    currentIndex: number | null;
     setCurrentIndex: Dispatch<SetStateAction<number | null>>;
 }
 
-const AyatDetail: React.FC<AyatDetailProps> = ({ absoluteIndex, ayat, setCurrentIndex }) => {
-    console.log({ ayat });
+const AyatDetail: React.FC<AyatDetailProps> = ({ absoluteIndex, ayat, setCurrentIndex, currentIndex }) => {
+    const isPlaying = currentIndex === absoluteIndex; // 👈 apakah ayat ini sedang diputar
+
+    const handleTogglePlay = () => {
+        setCurrentIndex(isPlaying ? null : absoluteIndex);
+    };
+
     return (
         <SpotlightCard className="rounded-xl border bg-white p-8 dark:bg-neutral-900" spotlightColor="rgba(96, 16, 221, 0.4)">
             <div className="flex items-start justify-between gap-4">
@@ -45,8 +51,8 @@ const AyatDetail: React.FC<AyatDetailProps> = ({ absoluteIndex, ayat, setCurrent
                 <TafsirDialog ayat={ayat} />
 
                 {ayat.audio && (
-                    <Button size="sm" onClick={() => setCurrentIndex(absoluteIndex === -1 ? (undefined as any) : absoluteIndex)}>
-                        <PlayIcon className="h-4 w-4" />
+                    <Button size="sm" onClick={handleTogglePlay}>
+                        {isPlaying ? <PauseIcon className="h-4 w-4" /> : <PlayIcon className="h-4 w-4" />}
                     </Button>
                 )}
             </div>

@@ -210,9 +210,15 @@ const AyatAudioPlayer = ({ ayatList, currentIndex, setCurrentIndex, fetchNextPag
                                 <span className="text-sm font-bold text-purple-600 dark:text-purple-200">{ayat?.ayatNumber}</span>
                             </div>
                             <div>
-                                <p className="line-clamp-1 text-sm font-medium text-neutral-900 dark:text-neutral-100">{ayat.latin}</p>
+                                <p
+                                    dir="rtl"
+                                    className="line-clamp-1 text-right text-base leading-snug font-medium text-neutral-900 dark:text-neutral-100"
+                                >
+                                    {ayat?.arabic}
+                                </p>
+
                                 <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                                    Surah {ayat.surahId} - Ayat {ayat?.ayatNumber}
+                                    Surah {ayat?.surah?.latin} - Ayat {ayat?.ayatNumber}
                                 </p>
                             </div>
                         </div>

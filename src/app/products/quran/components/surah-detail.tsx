@@ -48,7 +48,15 @@ const SurahDetail = ({ surahId }: SurahDetailProps) => {
                         {page.data.map((ayat) => {
                             const absoluteIndex = mergedAyats.findIndex((a) => a.id === ayat.id);
 
-                            return <AyatDetail key={ayat?.id} absoluteIndex={absoluteIndex} ayat={ayat} setCurrentIndex={setCurrentIndex} />;
+                            return (
+                                <AyatDetail
+                                    key={ayat?.id}
+                                    absoluteIndex={absoluteIndex}
+                                    ayat={ayat}
+                                    currentIndex={currentIndex}
+                                    setCurrentIndex={setCurrentIndex}
+                                />
+                            );
                         })}
                     </div>
                 ))}
