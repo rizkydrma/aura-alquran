@@ -4,9 +4,12 @@ import { SurahDetailSkeleton } from "@/components/skeleton/skeleton-surah";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { IAyat, useInfiniteAyatsByJuzNumber } from "@/lib/api/ayats";
 import { useParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import AyatAudioPlayer from "./ayat-audio-player";
 import AyatDetail from "./ayat-detail";
+import SurahInfo from "./surah-info";
+import SpotlightCard from "@/components/react-bits/SpotlightCard";
+import Bismillah from "@/components/bismillah";
 
 const JuzDetail = () => {
     const { juzId } = useParams<{ juzId: string }>();
@@ -34,17 +37,32 @@ const JuzDetail = () => {
             <div className="space-y-6">
                 {data?.pages.map((page, i) => (
                     <div key={i} className="space-y-4">
-                        {page.data.map((ayat) => {
+                        {page.data.map((ayat, index) => {
                             const absoluteIndex = mergedAyats.findIndex((a) => a.id === ayat.id);
 
+                            const prevSurahId = page?.data[index - 1]?.surahId;
+                            const isNewSurah = ayat?.surahId !== prevSurahId;
+
                             return (
-                                <AyatDetail
-                                    key={ayat?.id}
-                                    absoluteIndex={absoluteIndex}
-                                    ayat={ayat}
-                                    currentIndex={currentIndex}
-                                    setCurrentIndex={setCurrentIndex}
-                                />
+                                <div key={ayat?.id} className="space-y-4">
+                                    {isNewSurah && (
+                                        <Fragment>
+                                            <SurahInfo surahId={ayat?.surahId} />
+                                            <SpotlightCard
+                                                className="flex items-center justify-center rounded-xl border bg-white p-8 py-4 dark:bg-neutral-900"
+                                                spotlightColor="rgba(96, 16, 221, 0.4)"
+                                            >
+                                                <Bismillah />
+                                            </SpotlightCard>
+                                        </Fragment>
+                                    )}
+                                    <AyatDetail
+                                        absoluteIndex={absoluteIndex}
+                                        ayat={ayat}
+                                        currentIndex={currentIndex}
+                                        setCurrentIndex={setCurrentIndex}
+                                    />
+                                </div>
                             );
                         })}
                     </div>

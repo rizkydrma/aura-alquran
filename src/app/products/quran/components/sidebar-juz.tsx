@@ -43,13 +43,14 @@ const SidebarJuz = () => {
                                 >
                                     <span className="font-semibold text-purple-100">{juz.juz}</span>
                                 </div>
-                                <div className="flex flex-1 flex-col gap-1">
+                                <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
                                         <h3 className="font-semibold text-gray-800 dark:text-gray-100">Juz {juz?.juz}</h3>
                                         <h3 className="font-semibold text-gray-800 dark:text-gray-100">{juz?.total_ayat} Ayat</h3>
                                     </div>
 
-                                    <div className="line-clamp-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                    <div className="line-clamp-1 w-full overflow-hidden text-ellipsis whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                        {juz?.surahs?.length} Surah{" "}
                                         {(() => {
                                             const maxShown = 1;
                                             const surahs = juz?.surahs ?? [];
