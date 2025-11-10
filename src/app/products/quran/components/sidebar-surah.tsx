@@ -33,8 +33,28 @@ const SidebarSurah: React.FC = ({}) => {
     return (
         <div className="relative">
             <div className="h-[80dvh] overflow-y-auto [mask-image:linear-gradient(to_bottom,black_80%,transparent_100%)]">
-                <div className="mb-4">
-                    <Input placeholder="Cari surah..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full" />
+                <div className="relative mb-4 overflow-hidden rounded-md">
+                    {/* Animated gradient border */}
+                    {isLoading && (
+                        <div className="absolute -inset-1 rounded-2xl opacity-75 blur-sm">
+                            <div
+                                className="animate-spin-slow absolute inset-0 rounded-2xl bg-gradient-to-r from-white via-purple-800 to-white"
+                                style={{
+                                    background: "linear-gradient(90deg, #ffffff, #a855f7, #ffffff, #a855f7)",
+                                    backgroundSize: "200% 100%",
+                                    animation: "gradient-move 2s linear infinite",
+                                }}
+                            ></div>
+                        </div>
+                    )}
+
+                    <Input
+                        placeholder="Cari surah..."
+                        type="search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full"
+                    />
                 </div>
                 {isLoading || !data ? (
                     <SidebarSurahSkeleton align="vertical" length={5} />

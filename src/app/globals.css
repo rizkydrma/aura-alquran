@@ -152,6 +152,24 @@
             opacity: 0;
         }
     }
+
+    @keyframes gradient-move {
+        0% {
+            background-position: 0% 50%;
+        }
+        100% {
+            background-position: 200% 50%;
+        }
+    }
+
+    @keyframes spin-slow {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
 }
 
 @layer utilities {
@@ -165,5 +183,13 @@
 
     .animate-star-top {
         animation: star-movement-top 3s linear infinite alternate;
+    }
+
+    .animate-gradient-move {
+        animation: gradient-move 2s linear infinite;
+    }
+
+    .animate-spin-slow {
+        animation: spin-slow 3s linear infinite;
     }
 }
