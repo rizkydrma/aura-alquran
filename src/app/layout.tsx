@@ -10,7 +10,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-    title: "AzoraX Al-Qur'an API",
+    title: "Ninetynine X Al-Qur'an API",
     description:
         "Data Al-Qur'an yang Cepat, Lengkap, dan Modern untuk Developer Muslim Indonesia. Dapatkan akșes ke data Surah, Ayat, Terjemahan, Tafsir, dan Audio Al-Qur'an dengan API yang terstruktur dan terverifikasi.",
     keywords: ["Al-Qur'an", "API", "data Al-Qur'an", "developer Muslim", "terjemahan", "tafsir", "murottal", "Indonesia"],

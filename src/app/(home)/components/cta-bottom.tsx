@@ -22,7 +22,7 @@ const CTABottom = () => {
 
                 <div className="absolute top-1/2 left-1/2 z-10 w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 transform space-y-4 rounded-3xl border border-white/20 bg-neutral-50/5 p-12 px-4 text-center shadow-[0_8px_60px_-10px_rgba(0,0,0,0.4)] md:px-8">
                     <h1 className="relative text-4xl font-semibold text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
-                        Build smarter with AzoraX API Muslim.
+                        Build smarter with Ninetynine X API Muslim.
                     </h1>
                     <p className="relative text-lg text-white/70">Fast, reliable, and ready for your next idea.</p>
 

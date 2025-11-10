@@ -67,7 +67,7 @@ const Footer = () => {
 
                 <div className="flex flex-col items-center justify-between border-t pt-8 md:flex-row">
                     <div className="mb-4 md:mb-0">
-                        <p className="text-gray-400">© 2025 AzoraX Labs.</p>
+                        <p className="text-gray-400">© 2025 NinetynineXLabs.</p>
                     </div>
                 </div>
             </div>
