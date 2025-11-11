@@ -1,15 +1,16 @@
 "use client";
 
+import BlurText from "@/components/BlurText";
 import SpotlightCard from "@/components/react-bits/SpotlightCard";
 import { HadisSourceSkeleton } from "@/components/skeleton/skeleton-hadis";
-import { Heading } from "@/components/typhography";
 import { useHadisGroupedBySource } from "@/lib/api/hadis";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
-import * as React from "react";
+import { useState } from "react";
 
 const HadisPage: React.FC = ({}) => {
-    const { data, isLoading, isError, error } = useHadisGroupedBySource();
+    const [animationComplete, setAnimationComplete] = useState(false);
+    const { data, isLoading, isError, error } = useHadisGroupedBySource({ enabled: animationComplete });
 
     if (isError)
         return (
@@ -20,10 +21,17 @@ const HadisPage: React.FC = ({}) => {
         );
 
     return (
-        <section className="relative mx-auto max-w-7xl space-y-12 p-4 py-24">
-            <Heading size="h2" className="text-center">
-                Wisdom from the Prophet, Guidance for Every Heart.
-            </Heading>
+        <section className="relative mx-auto min-h-screen max-w-7xl space-y-12 p-4 py-24">
+            <div className="flex w-full flex-col items-center justify-center pt-20 pb-10">
+                <BlurText
+                    text="Wisdom from the Prophet, Guidance for Every Heart."
+                    delay={150}
+                    animateBy="words"
+                    direction="top"
+                    className="text-3xl md:text-4xl lg:text-5xl"
+                    onAnimationComplete={() => setAnimationComplete(true)}
+                />
+            </div>
 
             {isLoading ? (
                 <HadisSourceSkeleton length={9} />

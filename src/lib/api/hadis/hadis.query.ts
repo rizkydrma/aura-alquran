@@ -1,11 +1,14 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getHadisBySource, getHadisGroupedBySource } from "./hadis.fetcher";
-import { getNextPage } from "@/lib/query-client";
+import { CustomQueryOptions, getNextPage } from "@/lib/query-client";
 
-export function useHadisGroupedBySource() {
+type HadisGroupedFetcher = typeof getHadisGroupedBySource;
+export function useHadisGroupedBySource(options?: CustomQueryOptions<HadisGroupedFetcher>) {
     return useQuery({
         queryKey: ["hadis-grouped-source"],
         queryFn: () => getHadisGroupedBySource(),
+        enabled: options?.enabled ?? true,
+        ...options,
     });
 }
 
