@@ -170,6 +170,28 @@
             transform: rotate(360deg);
         }
     }
+
+    @keyframes rotate-border {
+        from {
+            transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
+        }
+        to {
+            transform: translate(-50%, -50%) scale(1.4) rotate(1turn);
+        }
+    }
+
+    @keyframes rotate-cw {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Rotasi Berlawanan Arah Jarum Jam (Counter-Clockwise - CCW) */
+    @keyframes rotate-ccw {
+        to {
+            transform: rotate(-360deg);
+        }
+    }
 }
 
 @layer utilities {
@@ -191,5 +213,22 @@
 
     .animate-spin-slow {
         animation: spin-slow 3s linear infinite;
+    }
+
+    .rotate-animation {
+        animation: rotate-border 2s linear infinite;
+    }
+
+    .-rotate-animation {
+        animation: rotate-border 2s linear infinite reverse;
+    }
+
+    /* Kelas Animasi */
+    .rotate-animation-cw {
+        animation: rotate-cw 5s linear infinite; /* Sesuaikan durasi (5s) sesuai keinginan */
+    }
+
+    .rotate-animation-ccw {
+        animation: rotate-ccw 5s linear infinite; /* Sesuaikan durasi (5s) agar sinkron */
     }
 }
