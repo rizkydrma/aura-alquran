@@ -30,7 +30,7 @@ export default {
             },
             asmaulhusna: {
                 title: "Asmaul Husna",
-                href: "/products/asmaul-husna",
+                href: "/products/asmaulhusna",
             },
         },
     },
