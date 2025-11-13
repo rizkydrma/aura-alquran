@@ -195,6 +195,9 @@
 }
 
 @layer utilities {
+    button:hover {
+        cursor: pointer;
+    }
     .animate-shine {
         animation: shine 5s linear infinite;
     }

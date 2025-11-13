@@ -1,9 +1,13 @@
 import { apiClient } from "@/lib/api-client";
-import { IHadis } from "./hadis.types";
+import { IHadis, IHadisBySource } from "./hadis.types";
 import { IPagination } from "@/types";
 
+export async function getHadisSingleBySource(source: string) {
+    return apiClient<{ data: IHadisBySource }>(`/hadis/single/${source}`);
+}
+
 export async function getHadisGroupedBySource() {
-    return apiClient<{ data: { source: string; total_hadis: number }[] }>(`/api/hadis`);
+    return apiClient<{ data: IHadisBySource[] }>(`/api/hadis`);
 }
 
 export function getHadisBySource(source: string, params?: { page?: number; limit?: number; q?: string }) {

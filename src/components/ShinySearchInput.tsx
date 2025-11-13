@@ -1,6 +1,6 @@
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Input } from "./ui/input";
-import { cn } from "@/lib/utils";
 
 interface ShinySeachInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     /** Delay waktu debounce dalam ms */
@@ -42,7 +42,7 @@ const ShinySeachInput: React.FC<ShinySeachInputProps> = ({ delay = 500, onDeboun
     }, [debouncedValue, onDebouncedChange]);
 
     return (
-        <div className="relative w-full max-w-[400px] overflow-hidden rounded-md bg-neutral-950 py-5">
+        <div className="relative w-full overflow-hidden rounded-md bg-neutral-950 py-5">
             <div
                 className={cn("absolute top-1/2 left-1/2 aspect-square w-full rounded-full", show ? "rotate-animation" : "hidden")}
                 style={{
