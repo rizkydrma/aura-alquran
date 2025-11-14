@@ -1,9 +1,7 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 
-export const HadisSourceSkeleton = ({ align = "horizontal", length = 3 }: { align?: "vertical" | "horizontal"; length?: number }) => {
+export const SkeletonDoa = ({ align = "horizontal", length = 3 }: { align?: "vertical" | "horizontal"; length?: number }) => {
     return (
         <div className={cn("grid gap-3", align == "horizontal" ? "grid-cols-3" : "grid-cols-1")}>
             {Array.from({ length }, (_, i) => (
@@ -20,7 +18,7 @@ export const HadisSourceSkeleton = ({ align = "horizontal", length = 3 }: { alig
     );
 };
 
-export const SidebarHadisSkeleton = ({ align = "horizontal", length = 3 }: { align?: "vertical" | "horizontal"; length?: number }) => {
+export const SkeletonDoaSidebar = ({ align = "horizontal", length = 3 }: { align?: "vertical" | "horizontal"; length?: number }) => {
     return (
         <div className={cn("grid gap-3", align == "horizontal" ? "grid-cols-3" : "grid-cols-1")}>
             {Array.from({ length }, (_, i) => (
@@ -38,7 +36,7 @@ export const SidebarHadisSkeleton = ({ align = "horizontal", length = 3 }: { ali
     );
 };
 
-export const HadisInfoSkeleton = () => {
+export const SkeletonDoaInfo = () => {
     return (
         <div className="rounded-lg bg-neutral-800 p-6">
             <div className="flex w-full flex-col items-end justify-end gap-3 text-right">
@@ -49,7 +47,7 @@ export const HadisInfoSkeleton = () => {
     );
 };
 
-export const HadisListSkeleton = ({ length = 3 }: { length?: number }) => {
+export const SkeletonDoaList = ({ length = 3 }: { length?: number }) => {
     return (
         <div className="grid grid-cols-1 gap-2">
             {Array.from({ length }, (_, i) => (

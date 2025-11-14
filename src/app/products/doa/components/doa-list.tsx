@@ -1,23 +1,22 @@
 "use client";
 
 import ShinySeachInput from "@/components/ShinySearchInput";
-
-import { HadisListSkeleton } from "@/components/skeleton/skeleton-hadis";
+import { SkeletonDoaList } from "@/components/skeleton/skeleton-doa";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import { useInfiniteHadisBySource } from "@/lib/api/hadis";
+import { useInfiniteDoas } from "@/lib/api/doas";
 import { useState } from "react";
-import HadisItem from "./hadis-item";
+import DoaItem from "./doa-item";
 
-interface HadisListProps {
+interface DoaListProps {
     source: string;
 }
 
-const HadisList = ({ source }: HadisListProps) => {
+const DoaList = ({ source }: DoaListProps) => {
     const [searchQuery, setSearchQuery] = useState("");
-
-    const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteHadisBySource(source, {
+    const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteDoas({
         limit: 20,
         q: searchQuery,
+        source,
     });
 
     const loadMoreRef = useInfiniteScroll({
@@ -29,21 +28,21 @@ const HadisList = ({ source }: HadisListProps) => {
 
     return (
         <section className="space-y-4">
-            <ShinySeachInput placeholder={`Cari Hadis ${source}...`} delay={400} isLoading={isLoading} onDebouncedChange={setSearchQuery} />
+            <ShinySeachInput placeholder={`Cari Doa ${source}...`} delay={400} isLoading={isLoading} onDebouncedChange={setSearchQuery} />
 
             {isLoading ? (
-                <HadisListSkeleton />
+                <SkeletonDoaList />
             ) : (
                 <div className="space-y-6">
                     {data?.pages.map((page, i) => (
                         <div key={i} className="space-y-4">
-                            {page.data.map((hadis) => {
-                                return <HadisItem key={hadis?.uuid} hadis={hadis} />;
+                            {page.data.map((doa) => {
+                                return <DoaItem key={doa?.uuid} doa={doa} />;
                             })}
                         </div>
                     ))}
 
-                    {isFetchingNextPage && <HadisListSkeleton />}
+                    {isFetchingNextPage && <SkeletonDoaList />}
                     <div ref={loadMoreRef} className="h-10" />
                 </div>
             )}
@@ -51,4 +50,4 @@ const HadisList = ({ source }: HadisListProps) => {
     );
 };
 
-export default HadisList;
+export default DoaList;
