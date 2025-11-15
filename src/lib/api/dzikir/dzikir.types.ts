@@ -4,4 +4,10 @@ export interface IDzikir {
     arab: string;
     indo: string;
     repeat: number;
+    number: number;
+}
+
+export interface IDzikirGroupedByType {
+    type: string;
+    total_dzikir: number;
 }
