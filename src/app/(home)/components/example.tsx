@@ -2,17 +2,20 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import APITester, { APITesterProps } from "./api-tester";
 import AnimatedContent from "@/components/AnimatedContent";
 
 export type TypeParameters = "query" | "path" | "body" | "header";
 
-const apiEndpoints: APITesterProps["endpoint"][] = [
+type Category = "quran" | "hadith" | "dzikir" | "all";
+
+const apiEndpoints: (APITesterProps["endpoint"] & { categories: Category[] })[] = [
     {
         method: "GET",
         path: "/surahs",
         description: "Get list surahs with pagination",
+        categories: ["quran"],
         parameters: [
             { name: "page", type: "query", description: "Page number (default: 1)", required: false },
             { name: "limit", type: "query", description: "Items per page (default: 10)", required: false },
@@ -26,6 +29,7 @@ const apiEndpoints: APITesterProps["endpoint"][] = [
         method: "GET",
         path: "/surahs/{surahId}",
         description: "Get detail surah by surah ID",
+        categories: ["quran"],
         parameters: [{ name: "surahId", type: "path", description: "Surah ID", required: true }],
         example: {
             description: "Get user with surah ID 1",
@@ -36,6 +40,7 @@ const apiEndpoints: APITesterProps["endpoint"][] = [
         method: "GET",
         path: "/surahs/{surahID}/ayats",
         description: "Get list ayat from surah with pagination",
+        categories: ["quran"],
         parameters: [
             { name: "surahId", type: "path", description: "Surah ID", required: true },
             { name: "page", type: "query", description: "Page number (default: 1)", required: false },
@@ -51,6 +56,7 @@ const apiEndpoints: APITesterProps["endpoint"][] = [
         method: "GET",
         path: "/surahs/{surahId}/ayats/{ayatNumber}",
         description: "Get detail ayat from surah by surah ID and ayat number",
+        categories: ["quran"],
         parameters: [
             { name: "surahId", type: "path", description: "Surah ID", required: true },
             { name: "ayatNumber", type: "path", description: "Ayat Number", required: true },
@@ -60,10 +66,78 @@ const apiEndpoints: APITesterProps["endpoint"][] = [
             params: { surahId: "1", ayatNumber: "1" },
         },
     },
+    // Hadith endpoints
+    {
+        method: "GET",
+        path: "/hadiths",
+        description: "Get list hadiths with pagination",
+        categories: ["hadith"],
+        parameters: [
+            { name: "page", type: "query", description: "Page number (default: 1)", required: false },
+            { name: "limit", type: "query", description: "Items per page (default: 10)", required: false },
+        ],
+        example: {
+            description: "Retrieve first page of hadiths",
+            params: { page: "1", limit: "10" },
+        },
+    },
+    {
+        method: "GET",
+        path: "/hadiths/{hadithId}",
+        description: "Get detail hadith by hadith ID",
+        categories: ["hadith"],
+        parameters: [{ name: "hadithId", type: "path", description: "Hadith ID", required: true }],
+        example: {
+            description: "Get hadith with ID 1",
+            params: { hadithId: "1" },
+        },
+    },
+    // Dzikir endpoints
+    {
+        method: "GET",
+        path: "/dzikirs",
+        description: "Get list dzikir with pagination",
+        categories: ["dzikir"],
+        parameters: [
+            { name: "page", type: "query", description: "Page number (default: 1)", required: false },
+            { name: "limit", type: "query", description: "Items per page (default: 10)", required: false },
+        ],
+        example: {
+            description: "Retrieve first page of dzikir",
+            params: { page: "1", limit: "10" },
+        },
+    },
+    {
+        method: "GET",
+        path: "/dzikirs/{dzikirId}",
+        description: "Get detail dzikir by dzikir ID",
+        categories: ["dzikir"],
+        parameters: [{ name: "dzikirId", type: "path", description: "Dzikir ID", required: true }],
+        example: {
+            description: "Get dzikir with ID 1",
+            params: { dzikirId: "1" },
+        },
+    },
 ];
 
 const ExampleSection = () => {
     const [selectedEndpoint, setSelectedEndpoint] = useState(apiEndpoints[0]);
+    const [selectedCategory, setSelectedCategory] = useState<Category>("all");
+
+    const getFilteredEndpoints = () => {
+        if (selectedCategory === "all") return apiEndpoints;
+        return apiEndpoints.filter((endpoint) => endpoint.categories.includes(selectedCategory));
+    };
+
+    // Ensure selected endpoint is always valid when category changes
+    useEffect(() => {
+        const filteredEndpoints = getFilteredEndpoints();
+        const currentSelectedIsValid = filteredEndpoints.includes(selectedEndpoint);
+
+        if (!currentSelectedIsValid && filteredEndpoints.length > 0) {
+            setSelectedEndpoint(filteredEndpoints[0]);
+        }
+    }, [selectedCategory, selectedEndpoint]);
 
     const getMethodColor = (method: string) => {
         switch (method) {
@@ -99,30 +173,60 @@ const ExampleSection = () => {
                 </p>
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                     {/* Endpoint List */}
-
                     <Card className="h-full">
                         <CardHeader>
                             <CardTitle>Available Endpoints</CardTitle>
                             <CardDescription>Click to test different API endpoints</CardDescription>
                         </CardHeader>
-                        <CardContent className="p-0">
-                            <div className="max-h-[500px] overflow-y-auto">
-                                {apiEndpoints.map((endpoint, index) => (
-                                    <div
-                                        key={index}
-                                        className={`hover:bg-muted/50 cursor-pointer border-b p-4 transition-all duration-200 hover:shadow-sm ${
-                                            selectedEndpoint === endpoint ? "bg-muted border-l-primary border-l-4" : ""
-                                        }`}
-                                        onClick={() => setSelectedEndpoint(endpoint)}
-                                    >
-                                        <div className="mb-2 flex items-center gap-2">
-                                            <Badge className={getMethodColor(endpoint.method)}>{endpoint.method}</Badge>
-                                            <code className="font-mono text-sm">{endpoint.path}</code>
-                                        </div>
-                                        <p className="text-muted-foreground text-sm">{endpoint.description}</p>
-                                        {endpoint.example && <p className="text-primary mt-1 text-xs">💡 {endpoint.example.description}</p>}
+                        <CardContent className="h-[500px] overflow-y-auto p-0">
+                            <div className="flex h-full">
+                                {/* Category Flags */}
+                                <div className="bg-muted/20 flex h-full w-fit flex-col items-center gap-4 border-r">
+                                    {[
+                                        { key: "all", label: "All" },
+                                        { key: "quran", label: "Quran" },
+                                        { key: "hadith", label: "Hadith" },
+                                        { key: "dzikir", label: "Dzikir" },
+                                        { key: "asmaulHusna", label: "Asmaul Husna" },
+                                        { key: "doa", label: "Doa" },
+                                    ].map((category) => (
+                                        <button
+                                            key={category.key}
+                                            onClick={() => setSelectedCategory(category.key as Category)}
+                                            className={`group flex w-9 items-center justify-center border-l py-3 transition-colors ${
+                                                selectedCategory === category.key
+                                                    ? "bg-primary/10 text-primary border-primary"
+                                                    : "text-muted-foreground hover:bg-muted/30 border-transparent"
+                                            } `}
+                                        >
+                                            <span className="block rotate-180 text-xs font-medium whitespace-nowrap [writing-mode:vertical-rl]">
+                                                {category.label}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {/* Endpoint List */}
+                                <div className="flex-1">
+                                    <div className="max-h-[500px] overflow-y-auto">
+                                        {getFilteredEndpoints().map((endpoint, index) => (
+                                            <div
+                                                key={index}
+                                                className={`hover:bg-muted/50 cursor-pointer border-b p-4 transition-all duration-200 hover:shadow-sm ${
+                                                    selectedEndpoint === endpoint ? "bg-muted border-l-primary border-l" : ""
+                                                }`}
+                                                onClick={() => setSelectedEndpoint(endpoint)}
+                                            >
+                                                <div className="mb-2 flex items-center gap-2">
+                                                    <Badge className={getMethodColor(endpoint.method)}>{endpoint.method}</Badge>
+                                                    <code className="font-mono text-sm">{endpoint.path}</code>
+                                                </div>
+                                                <p className="text-muted-foreground text-sm">{endpoint.description}</p>
+                                                {endpoint.example && <p className="text-primary mt-1 text-xs">💡 {endpoint.example.description}</p>}
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
+                                </div>
                             </div>
                         </CardContent>
                     </Card>

@@ -1,7 +1,6 @@
 import AnimatedContent from "@/components/AnimatedContent";
 import SpotlightCard from "@/components/react-bits/SpotlightCard";
-import { CircleGaugeIcon, LanguagesIcon, SparklesIcon } from "lucide-react";
-import React from "react";
+import { CircleGaugeIcon, FileBoxIcon, SparklesIcon } from "lucide-react";
 
 const USPS = [
     {
@@ -15,9 +14,9 @@ const USPS = [
         description: " API responses in milliseconds with structured JSON data easy to parse for modern applications.",
     },
     {
-        icon: LanguagesIcon,
-        title: "Multi-Language",
-        description: "Support for translations in various languages.",
+        icon: FileBoxIcon,
+        title: "Better Documentation",
+        description: "Our documentation is designed by developers for developers.",
     },
 ];
 
@@ -40,7 +39,7 @@ const USPSesction = () => {
                     {USPS?.map((usp) => (
                         <SpotlightCard
                             key={usp?.title}
-                            className="group transition-transform duration-300 ease-out hover:scale-105"
+                            className="group rounded-md transition-transform duration-300 ease-out hover:scale-105"
                             spotlightColor="rgba(96, 16, 221, 0.4)"
                         >
                             <div className="space-y-4">

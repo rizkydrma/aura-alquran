@@ -180,7 +180,7 @@ export default function APITester({ endpoint }: APITesterProps) {
                     </Button>
                 </div>
             </CardHeader>
-            <CardContent className="max-h-[500px] overflow-y-auto">
+            <CardContent>
                 <Tabs defaultValue="parameters" className="w-full">
                     <TabsList className="grid w-full grid-cols-4">
                         <TabsTrigger value="parameters">Parameters</TabsTrigger>
