@@ -1,6 +1,6 @@
 # Ninetynine X Al-Qur'an REST API Documentation
 
-Backend API untuk mengakses data Al-Qur'an menggunakan Hono.js, Bun, TypeScript, PostgreSQL, dan Drizzle ORM.
+Backend API for accessing Al-Qur'an data using Hono.js, Bun, TypeScript, PostgreSQL, and Drizzle ORM.
 
 ## Base URL
 
@@ -8,28 +8,28 @@ Backend API untuk mengakses data Al-Qur'an menggunakan Hono.js, Bun, TypeScript,
 http://localhost:3000/api/v1
 ```
 
-## Dokumentasi Chapters
+## Documentation Chapters
 
-- [Authentication](/docs/authentication) - Panduan autentikasi dengan API key
-- [Rate Limiting](/docs/rate-limiting) - Batasan permintaan API
-- [Surah](/docs/surah) - Data Surah Al-Qur'an
-- [Ayat](/docs/ayat) - Data Ayat dan Terjemahan
-- [Tafsir](/docs/tafsir) - Tafsir Al-Qur'an
-- [Hadis](/docs/hadis) - Kumpulan Hadis
-- [Doa](/docs/doa) - Kumpulan Doa Harian
-- [Dzikir](/docs/dzikir) - Bacaan Dzikir
-- [Asmaul Husna](/docs/asmaul-husna) - 99 Nama Allah
-- [Email](/docs/email) - Layanan Email
-- [Error Responses](/docs/error_responses) - Deskripsi respons error
+- [Authentication](/docs/authentication) - API key authentication guide
+- [Rate Limiting](/docs/rate-limiting) - API request limits
+- [Surah](/docs/surah) - Al-Qur'an Surah data
+- [Ayat](/docs/ayat) - Ayat and translation data
+- [Tafsir](/docs/tafsir) - Al-Qur'an Tafsir
+- [Hadis](/docs/hadis) - Hadith collection
+- [Doa](/docs/doa) - Daily prayers collection
+- [Dzikir](/docs/dzikir) - Dzikir recitations
+- [Asmaul Husna](/docs/asmaul-husna) - 99 Names of Allah
+- [Email](/docs/email) - Email service
+- [Error Responses](/docs/error_responses) - Error response descriptions
 
 ## Overview
 
-API ini menyediakan akses penuh ke data Al-Qur'an lengkap dengan terjemahan, transliterasi, dan struktur mushaf Al-Qur'an. Semua endpoint memerlukan autentikasi menggunakan header `X-API-Key`.
+This API provides full access to Al-Qur'an data complete with translations, transliterations, and mushaf structure. All endpoints require authentication using the `X-API-Key` header.
 
-Fitur utama:
+Key features:
 
-- Akses data 114 Surah lengkap
-- Pencarian ayat dengan full-text search
-- Pagination untuk handling data besar
-- Rate limiting untuk mencegah abuse
-- Response terstruktur dengan validasi Zod
+- Access to all 114 Surahs
+- Ayat search with full-text search
+- Pagination for handling large datasets
+- Rate limiting to prevent abuse
+- Structured responses with Zod validation

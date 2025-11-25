@@ -8,12 +8,6 @@ import { getPageMap } from "nextra/page-map";
 import React from "react";
 import "./globals.css";
 import { Providers } from "./providers";
-import { Plus_Jakarta_Sans } from "next/font/google";
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-    subsets: ["latin"],
-    variable: "--font-plus-jakarta-sans",
-});
 
 export const metadata: Metadata = {
     title: "Ninetynine X Al-Qur'an API",
@@ -29,7 +23,7 @@ export const viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" dir="ltr" suppressHydrationWarning className={`${plusJakartaSans.variable}`}>
+        <html lang="en" dir="ltr" suppressHydrationWarning>
             <Head></Head>
             <body>
                 <Layout

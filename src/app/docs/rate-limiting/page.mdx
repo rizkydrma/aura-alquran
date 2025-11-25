@@ -1,20 +1,20 @@
 # Rate Limiting
 
-API ini membatasi jumlah request untuk mencegah penyalahgunaan dan menjaga kinerja sistem.
+This API limits the number of requests to prevent abuse and maintain system performance.
 
-- **Batas**: Maksimal 100 requests per jendela per API key
-- **Jendela Waktu**: 60 detik (1 menit)
+- **Limit**: Maximum 100 requests per window per API key
+- **Time Window**: 60 seconds (1 minute)
 
 ## Rate Limit Headers
 
-Setiap response akan menyertakan header berikut untuk membantu Anda memantau penggunaan:
+Each response will include the following headers to help you monitor usage:
 
-- `X-RateLimit-Limit`: Jumlah maksimal request yang diizinkan per jendela (100)
-- `X-RateLimit-Remaining`: Jumlah request tersisa dalam jendela saat ini
+- `X-RateLimit-Limit`: Maximum number of requests allowed per window (100)
+- `X-RateLimit-Remaining`: Number of requests remaining in the current window
 
-## Ketika Batas Terlampaui
+## When Limit is Exceeded
 
-Jika Anda melebihi batas request, sistem akan memberikan response berikut:
+If you exceed the request limit, the system will return the following response:
 
 ```json
 {
@@ -24,6 +24,6 @@ Jika Anda melebihi batas request, sistem akan memberikan response berikut:
 
 **Status Code**: `429`
 
-Header tambahan saat batas terlampaui:
+Additional headers when limit is exceeded:
 
-- `Retry-After`: Waktu tunggu dalam detik sebelum request berikutnya diizinkan
+- `Retry-After`: Wait time in seconds before the next request is allowed
