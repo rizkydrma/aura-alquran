@@ -1,0 +1,107 @@
+# Doa API
+
+Base URL: `/doas`
+
+## Get Doa Grouped by Source
+
+Retrieve a list of Doa sources and their counts.
+
+**Endpoint**
+`GET /`
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get doa group by source",
+  "data": [
+    {
+      "source": "quran",
+      "count": 50
+    },
+    {
+      "source": "hadits",
+      "count": 100
+    },
+    ...
+  ]
+}
+```
+
+## Get All Doas
+
+Retrieve a list of all Doas with pagination, search, and filtering.
+
+**Endpoint**
+`GET /all`
+
+**Query Parameters**
+
+| Parameter | Type   | Default | Description |
+| :-------- | :----- | :------ | :---------- |
+| `page`    | number | 1       | Page number (min 1) |
+| `limit`   | number | 10      | Number of items per page (min 1, max 100) |
+| `q`       | string | -       | Search query (max 100 characters) |
+| `source`  | string | -       | Filter by source (e.g., "quran", "hadits") |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get all doa",
+  "data": [
+    {
+      "id": "uuid-string",
+      "title": "Doa Selamat",
+      "arabic": "...",
+      "latin": "...",
+      "translation": "...",
+      "source": "hadits",
+      ...
+    },
+    ...
+  ],
+  "_metadata": {
+    "page": 1,
+    "limit": 10,
+    "total_page": 5,
+    "total_row": 50
+  }
+}
+```
+
+## Get Doa by UUID
+
+Retrieve details of a specific Doa by its UUID.
+
+**Endpoint**
+`GET /:uuid`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `uuid`    | string | The UUID of the doa |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get doa by uuid",
+  "data": {
+    "id": "uuid-string",
+    "title": "Doa Selamat",
+    "arabic": "...",
+    "latin": "...",
+    "translation": "...",
+    "source": "hadits",
+    ...
+  }
+}
+```

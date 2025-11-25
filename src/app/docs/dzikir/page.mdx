@@ -1,0 +1,106 @@
+# Dzikir API
+
+Base URL: `/dzikirs`
+
+## Get Dzikir Grouped by Type
+
+Retrieve a list of Dzikir types and their counts.
+
+**Endpoint**
+`GET /`
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get dzikir grouped",
+  "data": [
+    {
+      "type": "pagi",
+      "count": 10
+    },
+    {
+      "type": "petang",
+      "count": 10
+    },
+    ...
+  ]
+}
+```
+
+## Get All Dzikirs
+
+Retrieve a list of all Dzikirs with pagination and search.
+
+**Endpoint**
+`GET /all`
+
+**Query Parameters**
+
+| Parameter | Type   | Default | Description |
+| :-------- | :----- | :------ | :---------- |
+| `page`    | number | 1       | Page number (min 1) |
+| `limit`   | number | 10      | Number of items per page (min 1, max 100) |
+| `q`       | string | -       | Search query (max 100 characters) |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get all dzikir",
+  "data": [
+    {
+      "id": "uuid-string",
+      "title": "Dzikir Pagi",
+      "arabic": "...",
+      "latin": "...",
+      "translation": "...",
+      "type": "pagi",
+      ...
+    },
+    ...
+  ],
+  "_metadata": {
+    "page": 1,
+    "limit": 10,
+    "total_page": 2,
+    "total_row": 20
+  }
+}
+```
+
+## Get Dzikir by UUID
+
+Retrieve details of a specific Dzikir by its UUID.
+
+**Endpoint**
+`GET /:uuid`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `uuid`    | string | The UUID of the dzikir |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get dzikir by uuid",
+  "data": {
+    "id": "uuid-string",
+    "title": "Dzikir Pagi",
+    "arabic": "...",
+    "latin": "...",
+    "translation": "...",
+    "type": "pagi",
+    ...
+  }
+}
+```

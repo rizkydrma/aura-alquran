@@ -1,0 +1,34 @@
+# Tafsir API
+
+Base URL: `/tafsirs`
+
+## Get Tafsir by Ayat ID
+
+Retrieve the tafsir for a specific ayat.
+
+**Endpoint**
+`GET /:ayatId`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `ayatId`  | string | The ID of the ayat |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get tafsir by ayat id",
+  "data": {
+    "id": 1,
+    "ayat_id": 1,
+    "tafsir_jalalayn": "...",
+    "tafsir_kemenag": "...",
+    "tafsir_quraish": "...",
+    ...
+  }
+}
+```

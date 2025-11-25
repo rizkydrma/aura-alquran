@@ -1,0 +1,48 @@
+# Email API
+
+Base URL: `/email`
+
+## Send API Key
+
+Generate an API key and send it to the specified email address.
+
+**Endpoint**
+`POST /send`
+
+**Request Body**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `to`      | string | The email address to receive the API key |
+
+**Response**
+
+```json
+{
+  "success": true,
+  "message": "API key generated and sent successfully"
+}
+```
+
+**Error Response (Validation Error)**
+
+```json
+{
+  "success": false,
+  "message": "Validation error",
+  "errors": {
+    "to": [
+      "Invalid email"
+    ]
+  }
+}
+```
+
+**Error Response (Rate Limit)**
+
+```json
+{
+  "success": false,
+  "message": "An API key was already generated for this email in the last 7 days."
+}
+```

@@ -1,0 +1,79 @@
+# Surah API
+
+Base URL: `/surahs`
+
+## Get All Surahs
+
+Retrieve a list of all Surahs with pagination and optional search.
+
+**Endpoint**
+`GET /`
+
+**Query Parameters**
+
+| Parameter | Type   | Default | Description |
+| :-------- | :----- | :------ | :---------- |
+| `page`    | number | 1       | Page number (min 1) |
+| `limit`   | number | 10      | Number of items per page (min 1, max 114) |
+| `q`       | string | -       | Search query (max 100 characters) |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get all surah",
+  "data": [
+    {
+      "id": 1,
+      "name": "Al-Fatihah",
+      "arabic": "الفاتحة",
+      "latin": "Al-Fatihah",
+      "transliteration": "The Opening",
+      "type": "Makkiyah",
+      "ayat_count": 7
+    },
+    ...
+  ],
+  "_metadata": {
+    "page": 1,
+    "limit": 10,
+    "total_page": 12,
+    "total_row": 114
+  }
+}
+```
+
+## Get Surah by ID
+
+Retrieve details of a specific Surah by its ID (number).
+
+**Endpoint**
+`GET /:surahId`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `surahId` | string | The ID of the surah (e.g., "1" for Al-Fatihah) |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get surah by id",
+  "data": {
+    "id": 1,
+    "name": "Al-Fatihah",
+    "arabic": "الفاتحة",
+    "latin": "Al-Fatihah",
+    "transliteration": "The Opening",
+    "type": "Makkiyah",
+    "ayat_count": 7,
+    ...
+  }
+}
+```

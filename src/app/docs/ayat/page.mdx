@@ -1,0 +1,159 @@
+# Ayat API
+
+Base URL: `/surahs`
+
+## Get All Ayats of a Surah
+
+Retrieve all ayats for a specific surah.
+
+**Endpoint**
+`GET /:surahId/ayats`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `surahId` | string | The ID of the surah |
+
+**Query Parameters**
+
+| Parameter | Type   | Default | Description |
+| :-------- | :----- | :------ | :---------- |
+| `page`    | number | 1       | Page number (min 1) |
+| `limit`   | number | 10      | Number of items per page (min 1, max 100) |
+| `q`       | string | -       | Search query (max 100 characters) |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get all ayats",
+  "data": [
+    {
+      "id": 1,
+      "surah_id": 1,
+      "ayat_number": 1,
+      "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "latin": "Bismillahir-rahmanir-rahim",
+      "transliteration": "In the name of Allah, the Entirely Merciful, the Especially Merciful.",
+      ...
+    },
+    ...
+  ],
+  "_metadata": {
+    "page": 1,
+    "limit": 10,
+    "total_page": 1,
+    "total_row": 7
+  }
+}
+```
+
+## Get Specific Ayat
+
+Retrieve a specific ayat by its number within a surah.
+
+**Endpoint**
+`GET /:surahId/ayats/:ayatNumber`
+
+**Path Parameters**
+
+| Parameter    | Type   | Description |
+| :----------- | :----- | :---------- |
+| `surahId`    | string | The ID of the surah |
+| `ayatNumber` | string | The ayat number |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get ayat",
+  "data": {
+    "id": 1,
+    "surah_id": 1,
+    "ayat_number": 1,
+    "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    ...
+  }
+}
+```
+
+## Search Ayats
+
+Search for ayats across all surahs.
+
+**Endpoint**
+`GET /ayats/search`
+
+**Query Parameters**
+
+| Parameter | Type   | Default | Description |
+| :-------- | :----- | :------ | :---------- |
+| `page`    | number | 1       | Page number (min 1) |
+| `limit`   | number | 10      | Number of items per page (min 1, max 100) |
+| `q`       | string | -       | Search query (max 100 characters) |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success search ayats",
+  "data": [ ... ]
+}
+```
+
+## Get Ayats by Juz
+
+Retrieve ayats filtered by Juz.
+
+**Endpoint**
+`GET /ayats/juz/:juz`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `juz`     | string | The Juz number |
+
+**Query Parameters**
+
+| Parameter | Type   | Default | Description |
+| :-------- | :----- | :------ | :---------- |
+| `page`    | number | 1       | Page number (min 1) |
+| `limit`   | number | 10      | Number of items per page (min 1, max 100) |
+| `q`       | string | -       | Search query (max 100 characters) |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get ayats by juz",
+  "data": [ ... ]
+}
+```
+
+## Get Juz List
+
+Retrieve a list of available Juz.
+
+**Endpoint**
+`GET /ayats/juz`
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get juz list",
+  "data": [ ... ]
+}
+```

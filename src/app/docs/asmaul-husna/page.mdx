@@ -1,0 +1,78 @@
+# Asmaul Husna API
+
+Base URL: `/asmaulhusnas`
+
+## Get All Asmaul Husna
+
+Retrieve a list of Asmaul Husna with pagination and search.
+
+**Endpoint**
+`GET /`
+
+**Query Parameters**
+
+| Parameter | Type   | Default | Description |
+| :-------- | :----- | :------ | :---------- |
+| `page`    | number | 1       | Page number (min 1) |
+| `limit`   | number | 10      | Number of items per page (min 1, max 100) |
+| `q`       | string | -       | Search query (max 100 characters) |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get all asmaul husna",
+  "data": [
+    {
+      "id": "uuid-string",
+      "index": 1,
+      "latin": "Ar-Rahman",
+      "arabic": "الرَّحْمَنُ",
+      "translation_id": "Yang Maha Pengasih",
+      "translation_en": "The Most Gracious",
+      ...
+    },
+    ...
+  ],
+  "_metadata": {
+    "page": 1,
+    "limit": 10,
+    "total_page": 10,
+    "total_row": 99
+  }
+}
+```
+
+## Get Asmaul Husna by UUID
+
+Retrieve details of a specific Asmaul Husna by its UUID.
+
+**Endpoint**
+`GET /:uuid`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `uuid`    | string | The UUID of the Asmaul Husna |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get asmaul husna by uuid",
+  "data": {
+    "id": "uuid-string",
+    "index": 1,
+    "latin": "Ar-Rahman",
+    "arabic": "الرَّحْمَنُ",
+    "translation_id": "Yang Maha Pengasih",
+    "translation_en": "The Most Gracious",
+    ...
+  }
+}
+```

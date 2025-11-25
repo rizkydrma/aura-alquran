@@ -1,0 +1,136 @@
+# Hadis API
+
+Base URL: `/hadis`
+
+## Get Hadis Grouped by Source
+
+Retrieve a list of Hadis sources and their counts.
+
+**Endpoint**
+`GET /`
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get hadis grouped by source",
+  "data": [
+    {
+      "source": "bukhari",
+      "count": 7008
+    },
+    {
+      "source": "muslim",
+      "count": 5362
+    },
+    ...
+  ]
+}
+```
+
+## Get Single Hadis by Source
+
+Retrieve a single random or specific hadis from a source (implementation depends on controller logic, usually random if no other param).
+
+**Endpoint**
+`GET /single/:source`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `source`  | string | The source of the hadis (e.g., "bukhari") |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get single hadis",
+  "data": {
+    "number": 1,
+    "arab": "...",
+    "id": "...",
+    ...
+  }
+}
+```
+
+## Get Hadis by Source and Number
+
+Retrieve a specific Hadis by its source and number.
+
+**Endpoint**
+`GET /:source/:number`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `source`  | string | The source of the hadis (e.g., "bukhari") |
+| `number`  | string | The hadis number |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get hadis by number",
+  "data": {
+    "number": 1,
+    "arab": "...",
+    "id": "...",
+    ...
+  }
+}
+```
+
+## Get All Hadis by Source
+
+Retrieve all Hadis from a specific source with pagination.
+
+**Endpoint**
+`GET /:source`
+
+**Path Parameters**
+
+| Parameter | Type   | Description |
+| :-------- | :----- | :---------- |
+| `source`  | string | The source of the hadis (e.g., "bukhari") |
+
+**Query Parameters**
+
+| Parameter | Type   | Default | Description |
+| :-------- | :----- | :------ | :---------- |
+| `page`    | number | 1       | Page number (min 1) |
+| `limit`   | number | 10      | Number of items per page (min 1, max 100) |
+| `q`       | string | -       | Search query (max 100 characters) |
+
+**Response**
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "message": "Success get hadis by source",
+  "data": [
+    {
+      "number": 1,
+      "arab": "...",
+      "id": "...",
+      ...
+    },
+    ...
+  ],
+  "_metadata": {
+    "page": 1,
+    "limit": 10,
+    "total_page": 701,
+    "total_row": 7008
+  }
+}
+```

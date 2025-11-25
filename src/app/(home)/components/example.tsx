@@ -1,124 +1,11 @@
 "use client";
 
+import AnimatedContent from "@/components/AnimatedContent";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { apiEndpoints, Category } from "@/data/available-endpoints";
 import { useEffect, useState } from "react";
-import APITester, { APITesterProps } from "./api-tester";
-import AnimatedContent from "@/components/AnimatedContent";
-
-export type TypeParameters = "query" | "path" | "body" | "header";
-
-type Category = "quran" | "hadith" | "dzikir" | "all";
-
-const apiEndpoints: (APITesterProps["endpoint"] & { categories: Category[] })[] = [
-    {
-        method: "GET",
-        path: "/surahs",
-        description: "Get list surahs with pagination",
-        categories: ["quran"],
-        parameters: [
-            { name: "page", type: "query", description: "Page number (default: 1)", required: false },
-            { name: "limit", type: "query", description: "Items per page (default: 10)", required: false },
-        ],
-        example: {
-            description: "Retrieve first page of surahs",
-            params: { page: "1", limit: "10" },
-        },
-    },
-    {
-        method: "GET",
-        path: "/surahs/{surahId}",
-        description: "Get detail surah by surah ID",
-        categories: ["quran"],
-        parameters: [{ name: "surahId", type: "path", description: "Surah ID", required: true }],
-        example: {
-            description: "Get user with surah ID 1",
-            params: { surahId: "1" },
-        },
-    },
-    {
-        method: "GET",
-        path: "/surahs/{surahID}/ayats",
-        description: "Get list ayat from surah with pagination",
-        categories: ["quran"],
-        parameters: [
-            { name: "surahId", type: "path", description: "Surah ID", required: true },
-            { name: "page", type: "query", description: "Page number (default: 1)", required: false },
-            { name: "limit", type: "query", description: "Items per page (default: 10)", required: false },
-            { name: "q", type: "query", description: "Search ayat based on arabic, translation, indonesia", required: false },
-        ],
-        example: {
-            description: "Retrieve first page of surahs",
-            params: { page: "1", limit: "10" },
-        },
-    },
-    {
-        method: "GET",
-        path: "/surahs/{surahId}/ayats/{ayatNumber}",
-        description: "Get detail ayat from surah by surah ID and ayat number",
-        categories: ["quran"],
-        parameters: [
-            { name: "surahId", type: "path", description: "Surah ID", required: true },
-            { name: "ayatNumber", type: "path", description: "Ayat Number", required: true },
-        ],
-        example: {
-            description: "Get user with surah ID 1 and ayat number 1",
-            params: { surahId: "1", ayatNumber: "1" },
-        },
-    },
-    // Hadith endpoints
-    {
-        method: "GET",
-        path: "/hadiths",
-        description: "Get list hadiths with pagination",
-        categories: ["hadith"],
-        parameters: [
-            { name: "page", type: "query", description: "Page number (default: 1)", required: false },
-            { name: "limit", type: "query", description: "Items per page (default: 10)", required: false },
-        ],
-        example: {
-            description: "Retrieve first page of hadiths",
-            params: { page: "1", limit: "10" },
-        },
-    },
-    {
-        method: "GET",
-        path: "/hadiths/{hadithId}",
-        description: "Get detail hadith by hadith ID",
-        categories: ["hadith"],
-        parameters: [{ name: "hadithId", type: "path", description: "Hadith ID", required: true }],
-        example: {
-            description: "Get hadith with ID 1",
-            params: { hadithId: "1" },
-        },
-    },
-    // Dzikir endpoints
-    {
-        method: "GET",
-        path: "/dzikirs",
-        description: "Get list dzikir with pagination",
-        categories: ["dzikir"],
-        parameters: [
-            { name: "page", type: "query", description: "Page number (default: 1)", required: false },
-            { name: "limit", type: "query", description: "Items per page (default: 10)", required: false },
-        ],
-        example: {
-            description: "Retrieve first page of dzikir",
-            params: { page: "1", limit: "10" },
-        },
-    },
-    {
-        method: "GET",
-        path: "/dzikirs/{dzikirId}",
-        description: "Get detail dzikir by dzikir ID",
-        categories: ["dzikir"],
-        parameters: [{ name: "dzikirId", type: "path", description: "Dzikir ID", required: true }],
-        example: {
-            description: "Get dzikir with ID 1",
-            params: { dzikirId: "1" },
-        },
-    },
-];
+import APITester from "./api-tester";
 
 const ExampleSection = () => {
     const [selectedEndpoint, setSelectedEndpoint] = useState(apiEndpoints[0]);
@@ -187,7 +74,7 @@ const ExampleSection = () => {
                                         { key: "quran", label: "Quran" },
                                         { key: "hadith", label: "Hadith" },
                                         { key: "dzikir", label: "Dzikir" },
-                                        { key: "asmaulHusna", label: "Asmaul Husna" },
+                                        { key: "asmaul-husna", label: "Asmaul Husna" },
                                         { key: "doa", label: "Doa" },
                                     ].map((category) => (
                                         <button

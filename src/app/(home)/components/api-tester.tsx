@@ -8,27 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { APITesterProps } from "@/data/available-endpoints";
 import { ArrowRight, Check, Code, Copy, FileJson, Loader2, Play, Shield, Terminal } from "lucide-react";
 import { useEffect, useState } from "react";
-
-export interface APITesterProps {
-    endpoint: {
-        method: string;
-        path: string;
-        description: string;
-        parameters: Array<{
-            name: string;
-            type: "query" | "path" | "body" | "header";
-            description: string;
-            required: boolean;
-        }>;
-        example?: {
-            description: string;
-            params?: Record<string, string>;
-            body?: any;
-        };
-    };
-}
 
 export default function APITester({ endpoint }: APITesterProps) {
     const [loading, setLoading] = useState(false);
