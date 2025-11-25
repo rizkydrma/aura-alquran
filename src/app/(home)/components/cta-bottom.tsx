@@ -26,7 +26,7 @@ const CTABottom = () => {
                     </h1>
                     <p className="relative text-lg text-white/70">Fast, reliable, and ready for your next idea.</p>
 
-                    <Link href="/docx" className={buttonVariants({})}>
+                    <Link href="/docs" className={buttonVariants({})}>
                         Get Started <ArrowRightIcon />
                     </Link>
                 </div>

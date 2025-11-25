@@ -10,7 +10,7 @@ export default {
     },
     products: {
         type: "menu",
-        title: "Produk",
+        title: "Example",
         items: {
             quran: {
                 title: "Quran",

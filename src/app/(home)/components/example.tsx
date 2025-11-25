@@ -1,15 +1,126 @@
 "use client";
 
 import AnimatedContent from "@/components/AnimatedContent";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { apiEndpoints, Category } from "@/data/available-endpoints";
+import { AlertCircle, CheckCircle2, Link2Icon, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import APITester from "./api-tester";
 
 const ExampleSection = () => {
     const [selectedEndpoint, setSelectedEndpoint] = useState(apiEndpoints[0]);
     const [selectedCategory, setSelectedCategory] = useState<Category>("all");
+    const [email, setEmail] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    // Email validation function
+    const validateEmail = (email: string): { isValid: boolean; error?: string } => {
+        // Check if empty
+        if (!email || email.trim() === "") {
+            return { isValid: false, error: "Email is required" };
+        }
+
+        // Check basic format with regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return { isValid: false, error: "Please enter a valid email address" };
+        }
+
+        // Check length (RFC 5321)
+        if (email.length > 254) {
+            return { isValid: false, error: "Email address is too long" };
+        }
+
+        // Check local part and domain
+        const [localPart, domain] = email.split("@");
+
+        if (localPart.length > 64) {
+            return { isValid: false, error: "Email address is invalid" };
+        }
+
+        // Check for consecutive dots
+        if (email.includes("..")) {
+            return { isValid: false, error: "Email address cannot contain consecutive dots" };
+        }
+
+        // Check if domain has at least one dot
+        if (!domain.includes(".")) {
+            return { isValid: false, error: "Please enter a valid domain" };
+        }
+
+        return { isValid: true };
+    };
+
+    const handleRequestApiKey = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Reset states
+        setError(null);
+
+        // Validate email before making API call
+        const validation = validateEmail(email);
+        if (!validation.isValid) {
+            setError(validation.error || "Invalid email address");
+            return;
+        }
+
+        setIsLoading(true);
+
+        try {
+            const response = await fetch(`http://localhost:8000/api/v1/email/send`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-API-KEY": process.env.NEXT_PUBLIC_API_KEY ?? "",
+                },
+                body: JSON.stringify({ to: email }),
+            });
+
+            // Handle HTTP errors
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({
+                    message: `Server error: ${response.status} ${response.statusText}`,
+                }));
+
+                throw new Error(errorData.message || "Failed to request API key. Please try again.");
+            }
+
+            const data = await response.json();
+            console.log("API Key request successful:", data);
+
+            // Success flow
+            setIsOpen(false);
+            setShowSuccess(true);
+            setEmail("");
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                setShowSuccess(false);
+            }, 5000);
+        } catch (err) {
+            // Handle different error types
+            if (err instanceof TypeError && err.message.includes("fetch")) {
+                setError("Network error. Please check your connection and try again.");
+            } else if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("An unexpected error occurred. Please try again.");
+            }
+
+            console.error("API Key request error:", err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const getFilteredEndpoints = () => {
         if (selectedCategory === "all") return apiEndpoints;
@@ -134,6 +245,71 @@ const ExampleSection = () => {
                                 Some endpoints may require authentication. Include your API KEY in the header:
                             </p>
                             <code className="bg-muted block rounded-lg p-3 text-sm">X-API-KEY: YOUR_API_KEY</code>
+
+                            {showSuccess && (
+                                <Alert className="mt-4 border-green-500 bg-green-50 dark:bg-green-950">
+                                    <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
+                                    <AlertTitle className="text-green-800 dark:text-green-200">Request Successful!</AlertTitle>
+                                    <AlertDescription className="text-green-700 dark:text-green-300">
+                                        Please check your email for your API key.
+                                    </AlertDescription>
+                                </Alert>
+                            )}
+
+                            <div className="mt-4">
+                                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                                    <DialogTrigger asChild>
+                                        <Button variant="default" className="w-fit">
+                                            <Link2Icon className="mr-2 h-4 w-4" /> Get API Key
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent className="sm:max-w-[425px]">
+                                        <DialogHeader>
+                                            <DialogTitle>Request API Key</DialogTitle>
+                                            <DialogDescription>Enter your email address to receive your API key.</DialogDescription>
+                                        </DialogHeader>
+                                        <form onSubmit={handleRequestApiKey}>
+                                            <div className="grid gap-4 py-4">
+                                                {error && (
+                                                    <Alert variant="destructive">
+                                                        <AlertCircle className="h-4 w-4" />
+                                                        <AlertTitle>Error</AlertTitle>
+                                                        <AlertDescription>{error}</AlertDescription>
+                                                    </Alert>
+                                                )}
+
+                                                <div className="grid grid-cols-4 items-center gap-4">
+                                                    <Label htmlFor="email" className="text-right">
+                                                        Email
+                                                    </Label>
+                                                    <Input
+                                                        id="email"
+                                                        type="email"
+                                                        value={email}
+                                                        onChange={(e) => setEmail(e.target.value)}
+                                                        className="col-span-3"
+                                                        placeholder="name@example.com"
+                                                        required
+                                                        disabled={isLoading}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <DialogFooter>
+                                                <Button type="submit" disabled={isLoading}>
+                                                    {isLoading ? (
+                                                        <>
+                                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                            Requesting...
+                                                        </>
+                                                    ) : (
+                                                        "Request Key"
+                                                    )}
+                                                </Button>
+                                            </DialogFooter>
+                                        </form>
+                                    </DialogContent>
+                                </Dialog>
+                            </div>
                         </CardContent>
                     </Card>
 
